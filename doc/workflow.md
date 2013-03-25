@@ -99,8 +99,8 @@ transportationState должен быть COMPLETED и этаж назначен
 * BOADING_OF_PASSENGER ( passangerID on story-N)   посадка пассажира на этаже
 * DEBOADING_OF_PASSENGER ( passangerID on story-N) высадка пассажира на этаже
 
-Все actions за время процесса перевозки должны записываться в специальный log file. Следует использовать для
-реализации записи в лог файл:  Apache Logging Service - log4j.   
+Все actions за время процесса перевозки должны записываться в специальный log file.
+> Следует использовать для реализации записи в лог файл:  Apache Logging Service - log4j.   
 
 ##Консольное выполнение программы:##
 Если в config файле  animationBoost=0, то процесс выполнения перевозки отображается только путем вывода в консоль
