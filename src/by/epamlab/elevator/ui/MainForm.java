@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.text.Caret;
+import javax.swing.text.DefaultCaret;
 
 public class MainForm extends JFrame {
 	/**
@@ -32,7 +34,13 @@ public class MainForm extends JFrame {
 		canvas.setMinimumSize(new Dimension(260, 380)); //WUT? //Do not work, srsly.
 		
 		final JTextArea text = new JTextArea("Вы еще не проигрывали сегодня?\n");
+		DefaultCaret textCaret = (DefaultCaret) text.getCaret();
+		text.setCaretPosition(text.getDocument().getLength()); //autoscrolling
 		text.setEditable(false);
+		
+		JScrollPane textScroll = new JScrollPane(text,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		final JButton godButton = new JButton("Проиграть");
 		final class Cell {
@@ -43,6 +51,7 @@ public class MainForm extends JFrame {
 			public void inc() { value += 1; };
 			public String toString() { return String.valueOf(value); };
 		}
+		
 		final Cell proigralRaz = new Cell(0);
 		godButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -59,7 +68,7 @@ public class MainForm extends JFrame {
 		
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		mainPanel.setPreferredSize(new Dimension(260, 380));
-		mainPanel.add(text, BorderLayout.CENTER);
+		mainPanel.add(textScroll, BorderLayout.CENTER);
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		
 		JPanel panel = new JPanel(new BorderLayout());
