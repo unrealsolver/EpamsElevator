@@ -28,8 +28,7 @@ public class MainForm extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//setResizable(false);
 		
-		JPanel canvas = new JPanel();
-		canvas.setBackground(Color.gray);
+		JPanel canvas = new ElevatorCanvas();
 		canvas.setPreferredSize(new Dimension(260, 380));
 		canvas.setMinimumSize(new Dimension(260, 380)); //WUT? //Do not work, srsly.
 		
