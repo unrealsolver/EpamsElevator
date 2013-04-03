@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.JPanel;
-import javax.swing.SwingWorker;
+import javax.swing.*;
 
 import org.jsfml.system.Clock;
 
 public class ElevatorCanvas extends JPanel {
 	private DynamicWidget box;
+	private JLabel fpsLabel;
 	private Clock clock;
 	private float frameTime;
 	
@@ -23,6 +23,13 @@ public class ElevatorCanvas extends JPanel {
 	public void init() {
 		this.setBackground(Color.gray);
 		box = new BaseWidget();
+		fpsLabel = new JLabel("<FPS>");
+		fpsLabel.setLocation(0, 0);
+		fpsLabel.setSize(50, 40);
+		fpsLabel.setHorizontalTextPosition(0);
+		fpsLabel.setBackground(Color.WHITE);
+		fpsLabel.setOpaque(true);
+		add(fpsLabel);
 		clock = new Clock();
 	}
 	
@@ -43,10 +50,14 @@ public class ElevatorCanvas extends JPanel {
 	public void paint(Graphics g) {
 		frameTime = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
-		super.paint(g);
-		//repaint();
-		Graphics g2d = (Graphics2D) g;
+		
+		//UPDATE
 		box.update(frameTime);
+		fpsLabel.setText(String.valueOf(frameTime));
+		
+		//DRAW
+		Graphics g2d = (Graphics2D) g;
+		super.paint(g);
 		box.draw(g2d);
 	}
 }
