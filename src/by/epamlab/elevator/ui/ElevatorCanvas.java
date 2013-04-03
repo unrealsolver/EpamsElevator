@@ -16,7 +16,7 @@ public class ElevatorCanvas extends JPanel {
 	
 	public void init() {
 		this.setBackground(Color.gray);
-		box = new WBox();
+		box = new BaseWidget();
 	}
 	
 	//TODO Or paint component?

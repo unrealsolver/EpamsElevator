@@ -10,7 +10,6 @@ public class BaseWidget implements DynamicWidget {
 	@Override
 	public void draw(Graphics target) {
 		target.drawRect(15, 15, 80, 50);
-		size.x;
 	}
 	@Override
 	public void update(float dt) {
