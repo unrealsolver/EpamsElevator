@@ -17,7 +17,6 @@ public class ElevatorCanvas extends JPanel {
 	public ElevatorCanvas() {
 		super();
 		init();
-		startAnimation();
 	}
 	
 	public void init() {
@@ -31,21 +30,23 @@ public class ElevatorCanvas extends JPanel {
 		fpsLabel.setOpaque(true);
 		add(fpsLabel);
 		clock = new Clock();
-	}
-	
-	public void startAnimation() {
-        SwingWorker<Object, Object> sw = new SwingWorker<Object, Object>() {
+		
+		// Running redrawning in its own thread
+		SwingWorker<Object, Object> sw = new SwingWorker<Object, Object>() {
             @Override
             protected Object doInBackground() throws Exception {
                 while (true) {
                 	repaint();
-                    Thread.sleep(20);
+                    Thread.sleep(20);//FIXME Constant
                 }
             }
         };
 
         sw.execute();
-    }
+	}
+	
+        
+	
 	//TODO Or paint component?
 	public void paint(Graphics g) {
 		frameTime = clock.getElapsedTime().asMicroseconds();
