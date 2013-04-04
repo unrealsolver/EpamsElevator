@@ -10,8 +10,8 @@ public class BaseWidget implements DynamicWidget {
 	/* Inspired by SFML */
 	static final Vector2i DEFAULT_POSITION = new Vector2i(0, 0);
 	static final Vector2i DEFAULT_SIZE = new Vector2i(10, 10);
-	private Vector2i position;
-	private Vector2i size;
+	protected Vector2i position;
+	protected Vector2i size;
 	
 	//FIXME: JUST 4 FUN! TO BE REMOVED!:
 	private Vector2i rotationCenter = new Vector2i(125, 125);

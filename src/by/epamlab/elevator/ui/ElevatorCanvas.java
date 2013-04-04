@@ -7,12 +7,16 @@ import java.awt.Graphics2D;
 import javax.swing.*;
 
 import org.jsfml.system.Clock;
+import org.jsfml.system.Vector2i;
 
 public class ElevatorCanvas extends JPanel {
 	private DynamicWidget box;
-	private JLabel fpsLabel;
 	private Clock clock;
+	private WText fpsTextLabel;
 	private float frameTime;
+	private float frameTimeSec;
+	private float tenFramesTime;
+	private int fpsUpdateCounter;
 	
 	public ElevatorCanvas() {
 		super();
@@ -22,13 +26,9 @@ public class ElevatorCanvas extends JPanel {
 	public void init() {
 		this.setBackground(Color.gray);
 		box = new BaseWidget();
-		fpsLabel = new JLabel("<FPS>");
-		fpsLabel.setLocation(0, 0);
-		fpsLabel.setSize(50, 40);
-		fpsLabel.setHorizontalTextPosition(0);
-		fpsLabel.setBackground(Color.WHITE);
-		fpsLabel.setOpaque(true);
-		add(fpsLabel);
+		fpsUpdateCounter = 0;
+		tenFramesTime = 0;
+		fpsTextLabel = new WText("TEST", new Vector2i(4, 30));
 		clock = new Clock();
 		
 		// Running redrawning in its own thread
@@ -37,7 +37,7 @@ public class ElevatorCanvas extends JPanel {
             protected Object doInBackground() throws Exception {
                 while (true) {
                 	repaint();
-                    Thread.sleep(20);//FIXME Constant
+                    Thread.sleep(25);//FIXME Constant
                 }
             }
         };
@@ -50,15 +50,22 @@ public class ElevatorCanvas extends JPanel {
 	//TODO Or paint component?
 	public void paint(Graphics g) {
 		frameTime = clock.getElapsedTime().asMicroseconds();
+		frameTimeSec =  clock.getElapsedTime().asSeconds();
 		clock.restart();
 		
 		//UPDATE
 		box.update(frameTime);
-		fpsLabel.setText(String.valueOf(frameTime));
-		
+		if (fpsUpdateCounter++ > 10) {
+			fpsTextLabel.setText(String.format("%.0f", (tenFramesTime/11)*1000));
+			fpsUpdateCounter = 0;
+			tenFramesTime = 0;
+		} else {
+			tenFramesTime += frameTimeSec;
+		}
 		//DRAW
 		Graphics g2d = (Graphics2D) g;
 		super.paint(g);
 		box.draw(g2d);
+		fpsTextLabel.draw(g);
 	}
 }
