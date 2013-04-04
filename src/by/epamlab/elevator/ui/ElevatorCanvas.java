@@ -40,15 +40,13 @@ public class ElevatorCanvas extends JPanel {
             protected Object doInBackground() throws Exception {
                 while (true) {
                 	repaint();
-                    Thread.sleep(25);//FIXME Constant
+                    Thread.sleep(25); //FIXME Constant
                 }
             }
         };
 
         sw.execute();
 	}
-	
-        
 	
 	//TODO Or paint component?
 	public void paint(Graphics g) {
