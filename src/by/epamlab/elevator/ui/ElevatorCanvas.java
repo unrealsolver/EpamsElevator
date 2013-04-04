@@ -10,13 +10,13 @@ import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2i;
 
 public class ElevatorCanvas extends JPanel {
-	private DynamicWidget box;
+	private ObjectManager objects = new ObjectManager();
 	private Clock clock;
 	private WText fpsTextLabel;
-	private float frameTime;
-	private float frameTimeSec;
-	private float tenFramesTime;
-	private int fpsUpdateCounter;
+	private float frameTime = 0;
+	private float frameTimeSec = 0;
+	private float tenFramesTime = 0;
+	private int fpsUpdateCounter = 0;
 	
 	public ElevatorCanvas() {
 		super();
@@ -25,10 +25,13 @@ public class ElevatorCanvas extends JPanel {
 	
 	public void init() {
 		this.setBackground(Color.gray);
-		box = new BaseWidget();
-		fpsUpdateCounter = 0;
-		tenFramesTime = 0;
-		fpsTextLabel = new WText("TEST", new Vector2i(4, 30));
+		fpsTextLabel = new WText(" ", new Vector2i(4, 30));
+		objects.add(fpsTextLabel);
+		
+		for (int i = 0; i < 30; i++) {
+			objects.add(new BaseWidget());
+		}
+
 		clock = new Clock();
 		
 		// Running redrawning in its own thread
@@ -54,7 +57,9 @@ public class ElevatorCanvas extends JPanel {
 		clock.restart();
 		
 		//UPDATE
-		box.update(frameTime);
+		objects.updateAll(frameTime);
+		
+		//FIXME Remove this code! 
 		if (fpsUpdateCounter++ > 10) {
 			fpsTextLabel.setText(String.format("%.0f", (tenFramesTime/11)*1000));
 			fpsUpdateCounter = 0;
@@ -62,10 +67,9 @@ public class ElevatorCanvas extends JPanel {
 		} else {
 			tenFramesTime += frameTimeSec;
 		}
+		
 		//DRAW
-		Graphics g2d = (Graphics2D) g;
 		super.paint(g);
-		box.draw(g2d);
-		fpsTextLabel.draw(g);
+		objects.drawAll(g);
 	}
 }

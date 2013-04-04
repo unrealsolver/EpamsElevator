@@ -59,4 +59,9 @@ public class WText extends BaseWidget {
 	public void draw(Graphics target) {
 		target.drawString(as.getIterator(), position.x, position.y);
 	}
+
+	@Override
+	public void update(float dt) {
+		//Text do nothing, isn't it?
+	}
 }
