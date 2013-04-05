@@ -12,7 +12,7 @@ public class Storey {
 	}
 	
 	public Passenger givePassenger() {
-		return null; //FIXME STRONLY!
+		return null; //FIXME STRONGLY!
 	}
 	
 	public void takePassenger(Passenger passenger) { 
