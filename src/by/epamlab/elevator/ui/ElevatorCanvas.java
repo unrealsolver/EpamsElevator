@@ -31,7 +31,9 @@ public class ElevatorCanvas extends JPanel {
 		for (int i = 0; i < 30; i++) {
 			objects.add(new WRotatingBox());
 		}
-
+		
+		objects.add(new WStorey(new Vector2i(50, 250)));
+		
 		clock = new Clock();
 		
 		// Running redrawning in its own thread

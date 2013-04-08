@@ -4,7 +4,7 @@ import java.util.Random;
 
 import org.jsfml.system.Vector2i;
 
-public class WRotatingBox extends BaseWidget {
+public class WRotatingBox extends WBase {
 		private Vector2i rotationCenter = new Vector2i(125, 125);
 		private float rotation = (new Random()).nextFloat()*20;
 		private int radius = 100;

@@ -8,24 +8,24 @@ import java.util.Random;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
-public class BaseWidget implements DynamicWidget {
+public class WBase implements DynamicWidget {
 	/* Inspired by SFML */
 	static final Vector2i DEFAULT_POSITION = new Vector2i(0, 0);
 	static final Vector2i DEFAULT_SIZE = new Vector2i(20, 20);
 	protected Vector2i position;
 	protected Vector2i size;
 	
-	public BaseWidget() {
+	public WBase() {
 		position = DEFAULT_POSITION;
 		size = DEFAULT_SIZE;
 	}
 	
-	public BaseWidget(Vector2i position) {
+	public WBase(Vector2i position) {
 		this.position = position;
 		size = DEFAULT_SIZE;
 	}
 	
-	public BaseWidget(Vector2i position, Vector2i size) {
+	public WBase(Vector2i position, Vector2i size) {
 		this.position = position;
 		this.size = size;
 	}

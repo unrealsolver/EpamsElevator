@@ -8,7 +8,7 @@ import java.text.AttributedString;
 
 import org.jsfml.system.Vector2i;
 
-public class WText extends BaseWidget {
+public class WText extends WBase {
 	private String text;
 	private AttributedString as;
 	private Font font;
