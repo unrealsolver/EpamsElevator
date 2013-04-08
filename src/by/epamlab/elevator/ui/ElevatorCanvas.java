@@ -29,7 +29,7 @@ public class ElevatorCanvas extends JPanel {
 		objects.add(fpsTextLabel);
 		
 		for (int i = 0; i < 30; i++) {
-			objects.add(new BaseWidget());
+			objects.add(new WRotatingBox());
 		}
 
 		clock = new Clock();

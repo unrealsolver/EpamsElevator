@@ -15,11 +15,6 @@ public class BaseWidget implements DynamicWidget {
 	protected Vector2i position;
 	protected Vector2i size;
 	
-	//FIXME: JUST 4 FUN! TO BE REMOVED!:
-	private Vector2i rotationCenter = new Vector2i(125, 125);
-	private float rotation = (new Random()).nextFloat()*20;
-	private int radius = 100;
-	
 	public BaseWidget() {
 		position = DEFAULT_POSITION;
 		size = DEFAULT_SIZE;
@@ -42,9 +37,7 @@ public class BaseWidget implements DynamicWidget {
 	
 	@Override
 	public void update(float dt) {
-		rotation += dt/200000;
-		position = new Vector2i((int) (rotationCenter.x + Math.cos(rotation)*radius),
-								(int) (rotationCenter.y + Math.sin(rotation)*radius));
+		//pass
 	}
 
 }
