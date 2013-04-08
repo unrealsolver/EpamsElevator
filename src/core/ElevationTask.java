@@ -3,20 +3,20 @@ package core;
 import java.util.*;
 
 public class ElevationTask {
-	private final int totalStoreys;
-	private final int totalPassengers;
-	private final  Elevator elevator;
-	private final List<Storey> storeys;;
+	protected final int totalStoreys;
+	protected final int totalPassengers;
+	protected final  Elevator elevator;
+	protected List<Storey> storeys;;
 
 	public ElevationTask(int totalStoreys, int totalPassengers, int elevatorCapacity) {
 		this.totalStoreys = totalPassengers;
 		this.totalPassengers = totalPassengers;
 		
 		elevator = new Elevator(elevatorCapacity, totalStoreys);
-		storeys  = new ArrayList<Storey>(totalStoreys);
+		storeys  = new ArrayList<Storey>();
 		
-		for (Storey storey : storeys) {
-			storey = new Storey();
+		for (int i = 0; i < totalStoreys; i++) {
+			storeys.add(new Storey());
 		}
 	}
 

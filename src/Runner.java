@@ -7,6 +7,9 @@ import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
 
+import core.ElevationTask;
+import core.RandomElevationTask;
+
 import by.epamlab.elevator.ui.MainForm;
 
 public class Runner {
@@ -41,7 +44,9 @@ public class Runner {
 				}
 			}
 		}
-
+		
+		ElevationTask elevationTask = new RandomElevationTask(10, 20, 6);
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				JFrame form = new MainForm();
