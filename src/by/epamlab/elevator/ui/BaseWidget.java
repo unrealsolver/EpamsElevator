@@ -22,6 +22,7 @@ public class BaseWidget implements DynamicWidget {
 	
 	public BaseWidget(Vector2i position) {
 		this.position = position;
+		size = DEFAULT_SIZE;
 	}
 	
 	public BaseWidget(Vector2i position, Vector2i size) {
