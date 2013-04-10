@@ -9,6 +9,14 @@ public class WRotatingBox extends WBase {
 		private float rotation = (new Random()).nextFloat()*20;
 		private int radius = 100;
 		
+		public WRotatingBox() {
+			super();
+		}
+		
+		public WRotatingBox(Vector2i position) {
+			super(position);
+		}
+		
 		@Override
 		public void update(float dt) {
 			rotation += dt/200000;
