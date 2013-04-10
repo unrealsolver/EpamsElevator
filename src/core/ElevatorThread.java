@@ -10,6 +10,9 @@ public class ElevatorThread extends Thread{
 	
 	@Override
 	public void run() {
-		
+		while (true /* Has untransported passengers */) {
+			/* Release elevators passengers */
+			/* Invite passengers */
+		}
 	}
 }
