@@ -32,7 +32,8 @@ public class ElevatorCanvas extends JPanel {
 			objects.add(new WRotatingBox());
 		}
 		
-		objects.add(new WStorey(new Vector2i(50, 250)));
+		//objects.add(new WStorey(new Vector2i(50, 250)));
+		objects.add(new WStoreyArray(new Vector2i(10, 100), 5));
 		
 		clock = new Clock();
 		

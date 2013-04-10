@@ -40,8 +40,4 @@ public class WStorey extends WBase {
 		}
 	}
 	
-	@Override
-	public void update(float dt) {
-		//pass
-	}
 }
