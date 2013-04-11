@@ -2,13 +2,18 @@ package core;
 
 import java.util.*;
 
+import org.apache.log4j.Logger;
+
 public class ElevationTask {
+	static final Logger log = Logger.getLogger(ElevationTask.class);
 	protected final int totalStoreys;
 	protected final int totalPassengers;
 	protected final  Elevator elevator;
-	protected List<Storey> storeys;;
-
+	protected final List<Storey> storeys;
+	private final Thread elevatorThread;
+	
 	public ElevationTask(int totalStoreys, int totalPassengers, int elevatorCapacity) {
+		log.info("Hello loggy!");
 		this.totalStoreys = totalPassengers;
 		this.totalPassengers = totalPassengers;
 		
@@ -18,6 +23,8 @@ public class ElevationTask {
 		for (int i = 0; i < totalStoreys; i++) {
 			storeys.add(new Storey());
 		}
+		
+		elevatorThread = new Thread(new ElevatorThread(this));
 	}
 
 	public int getTotalStoreys() {
@@ -34,5 +41,9 @@ public class ElevationTask {
 
 	public List<Storey> getStoreys() {
 		return storeys;
+	}
+	
+	public void startElevation() {
+		elevatorThread.start();
 	}
 }

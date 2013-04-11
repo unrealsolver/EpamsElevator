@@ -14,16 +14,13 @@ import by.epamlab.elevator.ui.MainForm;
 
 public class Runner {
 	static final String PROPERTY_FILE = "elevator.config";
-	static final Logger log = Logger.getLogger(Runner.class);
-
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		Properties properties = new Properties();
 		FileInputStream propertyStream = null;
-
-		log.info("Hello loggy!");
 
 		try {
 			propertyStream = new FileInputStream(PROPERTY_FILE);
@@ -46,6 +43,7 @@ public class Runner {
 		}
 		
 		ElevationTask elevationTask = new RandomElevationTask(10, 20, 6);
+		elevationTask.startElevation();
 		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
