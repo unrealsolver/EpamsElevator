@@ -2,6 +2,7 @@ package core;
 
 import java.util.*;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 public class ElevationTask {
@@ -13,7 +14,7 @@ public class ElevationTask {
 	private final Thread elevatorThread;
 	
 	public ElevationTask(int totalStoreys, int totalPassengers, int elevatorCapacity) {
-		log.info("Hello loggy!");
+		log(Level.INFO, "Hello from main!");
 		this.totalStoreys = totalPassengers;
 		this.totalPassengers = totalPassengers;
 		
@@ -45,5 +46,9 @@ public class ElevationTask {
 	
 	public void startElevation() {
 		elevatorThread.start();
+	}
+	
+	public synchronized void log(Level level, Object message) {
+		log.log(level, message);
 	}
 }
