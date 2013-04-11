@@ -18,7 +18,7 @@ public class MainForm extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ElevationTask elevationTask;
+	private final ElevationTask elevationTask;
 	
 	public MainForm(ElevationTask elevationTask) {
 		super();
@@ -50,6 +50,7 @@ public class MainForm extends JFrame {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		final JButton godButton = new JButton("Press"/*"Проиграть"*/);
+		
 		final class Cell {
 			private int value; 
 			public Cell(int t) { value = t; }
@@ -66,6 +67,9 @@ public class MainForm extends JFrame {
 				text.append("You press the button: "/*"Сколько раз вы проигрывали: "*/ + proigralRaz + "\n"); //Do not know how to workaround \n
 				//TODO: ELEVATION_TASK -> GET_STATE -> DETERMINE -> SWITCH STATE AND CAPTION
 				godButton.setText("Pressed "/*"Проиграно: "*/ + proigralRaz);
+				synchronized (elevationTask.getElevatorLock()) {
+					elevationTask.getElevatorLock().notify();
+				}
 			}
 		});
 		

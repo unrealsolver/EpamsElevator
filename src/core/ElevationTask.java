@@ -6,13 +6,21 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 public class ElevationTask {
+	/* Locks */
+	private final Object elevatorLock = new Object();
+	
+	/* Logger */
 	static final Logger log = Logger.getLogger(ElevationTask.class);
+	
+	/* Threads */
+	private final Thread elevatorThread;
+	
+	/* Content */
 	protected final int totalStoreys;
 	protected final int totalPassengers;
 	protected final  Elevator elevator;
 	protected final List<Storey> storeys;
-	private final Thread elevatorThread;
-	
+
 	public ElevationTask(int totalStoreys, int totalPassengers, int elevatorCapacity) {
 		log(Level.INFO, "Hello from main!");
 		this.totalStoreys = totalPassengers;
@@ -28,6 +36,7 @@ public class ElevationTask {
 		elevatorThread = new Thread(new ElevatorThread(this));
 	}
 
+	/* Boilerplate */
 	public int getTotalStoreys() {
 		return totalStoreys;
 	}
@@ -44,13 +53,19 @@ public class ElevationTask {
 		return storeys;
 	}
 	
+	public Logger getLogger() {
+		return log;
+	}
+	
+	public Object getElevatorLock() {
+		return elevatorLock;
+	}
+	
+	/* Usefull stuff */
 	public void startElevation() {
 		elevatorThread.start();
 	}
 	
-	public Logger getLogger() {
-		return log;
-	}
 	
 	public synchronized void log(Level level, Object message) {
 		log.log(level, message);

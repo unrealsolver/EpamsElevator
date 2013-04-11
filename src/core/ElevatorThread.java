@@ -5,10 +5,12 @@ import org.apache.log4j.Level;
 public class ElevatorThread implements Runnable{
 	private final ElevationTask elevationTask;
 	private final Elevator elevator;
+	private final Object lock;
 	
 	public ElevatorThread(ElevationTask elevationTask) {
 		this.elevationTask = elevationTask;
 		this.elevator = elevationTask.getElevator();
+		this.lock= elevationTask.getElevatorLock(); 
 	}
 	
 	/**
@@ -26,7 +28,9 @@ public class ElevatorThread implements Runnable{
 		
 		while (true /* Has untransported passengers */) {
 			try {
-				Thread.sleep(500);
+				synchronized (lock) {
+					lock.wait();
+				}
 			} catch (InterruptedException e) {
 				log(Level.ERROR, "thread was interrupted!");
 			}
