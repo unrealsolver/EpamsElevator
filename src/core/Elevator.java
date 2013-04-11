@@ -12,7 +12,7 @@ public class Elevator {
 	
 	public Elevator(int capacity, int lastStorey) {
 		this.capacity = capacity;
-		this.lastStorey = lastStorey;
+		this.lastStorey = lastStorey - 1; //Because we start count from zero
 		currentStorey = 0;
 		upward = true;
 	}
