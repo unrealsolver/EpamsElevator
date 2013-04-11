@@ -9,7 +9,12 @@ import javax.swing.*;
 import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2i;
 
+import com.sun.java.swing.plaf.windows.WindowsBorders;
+
+import core.ElevationTask;
+
 public class ElevatorCanvas extends JPanel {
+	private final ElevationTask elevationTask;
 	private ObjectManager objects = new ObjectManager();
 	private Clock clock;
 	private WText fpsTextLabel;
@@ -18,8 +23,11 @@ public class ElevatorCanvas extends JPanel {
 	private float tenFramesTime = 0;
 	private int fpsUpdateCounter = 0;
 	
-	public ElevatorCanvas() {
+	private WBase box;
+	
+	public ElevatorCanvas(ElevationTask elevationTask) {
 		super();
+		this.elevationTask = elevationTask; 
 		init();
 	}
 	
@@ -31,6 +39,9 @@ public class ElevatorCanvas extends JPanel {
 		for (int i = 0; i < 30; i++) {
 			objects.add(new WRotatingBox());
 		}
+		
+		box = new WBase();
+		objects.add(box);
 		
 		//objects.add(new WStorey(new Vector2i(50, 250)));
 		objects.add(new WStoreyArray(new Vector2i(10, 100), 5));
@@ -59,6 +70,12 @@ public class ElevatorCanvas extends JPanel {
 		
 		//UPDATE
 		objects.updateAll(frameTime);
+		
+		//Update box representing elevator
+		box.setPosition(new Vector2i(
+				box.getPosition().x,
+				elevationTask.getElevator().getStorey() * 10)
+		);
 		
 		//FIXME Remove this code! 
 		if (fpsUpdateCounter++ > 10) {

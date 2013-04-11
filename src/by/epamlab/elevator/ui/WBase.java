@@ -30,6 +30,14 @@ public class WBase implements DynamicWidget {
 		this.size = size;
 	}
 	
+	public Vector2i getPosition() {
+		return position;
+	}
+
+	public void setPosition(Vector2i position) {
+		this.position = position;
+	}
+
 	@Override
 	public void draw(Graphics target) {
 		target.setColor(Color.WHITE);
