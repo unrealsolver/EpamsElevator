@@ -4,9 +4,11 @@ import org.apache.log4j.Level;
 
 public class ElevatorThread implements Runnable{
 	private final ElevationTask elevationTask;
+	private final Elevator elevator;
 	
 	public ElevatorThread(ElevationTask elevationTask) {
 		this.elevationTask = elevationTask;
+		this.elevator = elevationTask.getElevator();
 	}
 	
 	/**
@@ -29,12 +31,14 @@ public class ElevatorThread implements Runnable{
 				log(Level.ERROR, "thread was interrupted!");
 			}
 			
-			log(Level.INFO, "Whatsup?");
 			/* Open doors */
 			/* Release elevators passengers */
 			/* Invite passengers */
 			/* Close doors */
+			
 			/* Move to next storey */
+			elevator.gotoNextStorey();
+			log(Level.INFO, "Elevator has been reached " + elevator.getStorey() + " storey.");
 		}
 	}
 }
