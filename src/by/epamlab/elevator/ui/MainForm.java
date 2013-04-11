@@ -10,14 +10,19 @@ import javax.swing.*;
 import javax.swing.text.Caret;
 import javax.swing.text.DefaultCaret;
 
+import core.ElevationTask;
+import core.SwingAppender;
+
 public class MainForm extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private ElevationTask elevationTask;
 	
-	public MainForm() {
+	public MainForm(ElevationTask elevationTask) {
 		super();
+		this.elevationTask = elevationTask; 
 		initUI();
 	}
 	
@@ -36,6 +41,9 @@ public class MainForm extends JFrame {
 		DefaultCaret textCaret = (DefaultCaret) text.getCaret();
 		text.setCaretPosition(text.getDocument().getLength()); //autoscrolling
 		text.setEditable(false);
+		
+		SwingAppender appender = new SwingAppender(text);
+		elevationTask.getLogger().addAppender(appender);
 		
 		JScrollPane textScroll = new JScrollPane(text,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,

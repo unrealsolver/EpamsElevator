@@ -48,6 +48,10 @@ public class ElevationTask {
 		elevatorThread.start();
 	}
 	
+	public Logger getLogger() {
+		return log;
+	}
+	
 	public synchronized void log(Level level, Object message) {
 		log.log(level, message);
 	}

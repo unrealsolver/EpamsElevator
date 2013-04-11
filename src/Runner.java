@@ -5,8 +5,6 @@ import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import org.apache.log4j.Logger;
-
 import core.ElevationTask;
 import core.RandomElevationTask;
 
@@ -42,12 +40,12 @@ public class Runner {
 			}
 		}
 		
-		ElevationTask elevationTask = new RandomElevationTask(10, 20, 6);
+		final ElevationTask elevationTask = new RandomElevationTask(10, 20, 6);
 		elevationTask.startElevation();
 		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				JFrame form = new MainForm();
+				JFrame form = new MainForm(elevationTask);
 				form.setVisible(true);
 			}
 		});
