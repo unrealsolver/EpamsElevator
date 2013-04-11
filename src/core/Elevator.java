@@ -17,6 +17,10 @@ public class Elevator {
 		upward = true;
 	}
 	
+	public int getStorey() {
+		return currentStorey;
+	}
+	
 	public void removePassenger(Passenger passenger) {
 		passengers.remove(passenger);
 	}
