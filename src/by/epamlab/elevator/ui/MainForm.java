@@ -34,14 +34,14 @@ public class MainForm extends JFrame {
 		canvas.setPreferredSize(new Dimension(260, 380));
 		canvas.setMinimumSize(new Dimension(260, 380)); //WUT? //Do not work, srsly.
 		
-		final JTextArea text = new JTextArea("Have u press the button today?\n"/*"Вы еще не проигрывали сегодня?\n"*/);
-		text.setCaretPosition(text.getDocument().getLength()); //autoscrolling
-		text.setEditable(false);
+		final JTextArea textArea = new JTextArea("Have u press the button today?\n"/*"Вы еще не проигрывали сегодня?\n"*/);
+		textArea.setCaretPosition(textArea.getDocument().getLength()); //autoscrolling
+		textArea.setEditable(false);
 		
-		SwingAppender appender = new SwingAppender(text);
+		SwingAppender appender = new SwingAppender(textArea);
 		elevationTask.getLogger().addAppender(appender);
 		
-		JScrollPane textScroll = new JScrollPane(text,
+		JScrollPane textScroll = new JScrollPane(textArea,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
@@ -58,7 +58,7 @@ public class MainForm extends JFrame {
 		godButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				proigralRaz.inc();
-				text.append("You press the button: "/*"Сколько раз вы проигрывали: "*/ + proigralRaz + "\n"); //Do not know how to workaround \n
+				textArea.append("You press the button: "/*"Сколько раз вы проигрывали: "*/ + proigralRaz + "\n"); //Do not know how to workaround \n
 				//TODO: ELEVATION_TASK -> GET_STATE -> DETERMINE -> SWITCH STATE AND CAPTION
 				godButton.setText("Pressed "/*"Проиграно: "*/ + proigralRaz);
 				synchronized (elevationTask.getElevatorLock()) {
