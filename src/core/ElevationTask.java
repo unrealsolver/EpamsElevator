@@ -1,6 +1,8 @@
 package core;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -13,6 +15,8 @@ public class ElevationTask {
 	static final Logger log = Logger.getLogger(ElevationTask.class);
 	
 	/* Threads */
+	protected final ThreadGroup passengersThreadGroup;	// \ Yes, I know, but ThreadGroup 
+	protected final List<Thread> passengersThreads;		// / can't start threads
 	private final Thread elevatorThread;
 	
 	/* Content */
@@ -36,8 +40,11 @@ public class ElevationTask {
 			storeys.add(new Storey());
 		}
 		
+		passengersThreadGroup = new ThreadGroup("PASSENGERS");
+		passengersThreads = new LinkedList<Thread>();
+		
 		elevatorController = new ElevatorThread(this);
-		elevatorThread = new Thread(elevatorController);
+		elevatorThread = new Thread(elevatorController, "ELEVATOR");
 	}
 
 	/* Boilerplate */
@@ -88,6 +95,10 @@ public class ElevationTask {
 	}
 	
 	public void startElevation() {
+		for (Thread thread : passengersThreads) {
+			thread.start();
+		}
+		
 		elevatorThread.start();
 	}
 	

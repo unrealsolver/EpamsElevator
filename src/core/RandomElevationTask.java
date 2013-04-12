@@ -30,8 +30,14 @@ public class RandomElevationTask extends ElevationTask {
 
 				//Creating new passenger
 				passenger = new Passenger(destinationStorey);
+				
 				//Pushing passenger to story
 				storey.takePassenger(passenger);
+				
+				passengersThreads.add(new Thread(passengersThreadGroup,
+						new PassengerThread(this, passenger),
+						new String("PASSENGER_" + passenger.getId())));
+				
 			}
 			
 			currentStorey++;
