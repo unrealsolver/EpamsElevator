@@ -41,15 +41,15 @@ public class Runner {
 		}
 		
 		/* Construct task */
-		final ElevationTask elevationTask = new RandomElevationTask(10, 20, 6);
+		final ElevationTask elevationTask = new RandomElevationTask(10, 1, 6);
 		
 		
 		//TODO if animationBoost...
+		/* Set interactive mode */
+		elevationTask.setInteractive(true);
 		/* Starting GUI */
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				/* Set interactive mode */
-				elevationTask.setInteractive(true);
 				/* Start main form */
 				JFrame form = new MainForm(elevationTask);
 				form.setVisible(true);

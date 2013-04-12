@@ -1,10 +1,16 @@
 package core;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class RandomElevationTask extends ElevationTask {
 	private static Random rnd = new Random();
-	
+	/**
+	 * Creates elevation task with randomly distributed passengers
+	 * @param totalStoreys
+	 * @param totalPassengers
+	 * @param elevatorCapacity
+	 */
 	public RandomElevationTask(int totalStoreys, int totalPassengers, int elevatorCapacity) {
 		super(totalStoreys, totalPassengers, elevatorCapacity);
 
@@ -21,7 +27,7 @@ public class RandomElevationTask extends ElevationTask {
 				while ((destinationStorey = rnd.nextInt(totalStoreys)) == currentStorey) {
 					//pass
 				}
-				
+
 				//Creating new passenger
 				passenger = new Passenger(destinationStorey);
 				//Pushing passenger to story
@@ -30,6 +36,8 @@ public class RandomElevationTask extends ElevationTask {
 			
 			currentStorey++;
 		}
+		
+		log.info("Passenger distribution: " + Arrays.toString(storeyDistribution));
 	}
 	
 	private int[] createStoreyDistribution(int totalStoreys, int totalPassengers) {

@@ -21,6 +21,7 @@ public class ElevationTask {
 	protected final  Elevator elevator;
 	private final ElevatorThread elevatorController;
 	protected final List<Storey> storeys;
+	private int passengersTransported = 0;
 	private boolean interactive = false;
 
 	public ElevationTask(int totalStoreys, int totalPassengers, int elevatorCapacity) {
@@ -64,6 +65,14 @@ public class ElevationTask {
 		return elevatorLock;
 	}
 	
+	public int getPassengersTransported() {
+		return passengersTransported;
+	}
+	
+	public synchronized void transportPassenger() {
+		passengersTransported++;
+	}
+	
 	public void setInteractive(boolean interactive) {
 		this.interactive = interactive;
 		updateAll();
@@ -82,6 +91,9 @@ public class ElevationTask {
 		elevatorThread.start();
 	}
 	
+	public boolean hasPassengers() {
+		return false;
+	}
 	
 	public synchronized void log(Level level, Object message) {
 		log.log(level, message);

@@ -6,12 +6,14 @@ public class ElevatorThread implements Runnable{
 	private final ElevationTask elevationTask;
 	private final Elevator elevator;
 	private final Object lock;
+	private int totalPassengers;
 	private boolean interactive;
 	
 	public ElevatorThread(ElevationTask elevationTask) {
 		this.elevationTask = elevationTask;
 		this.elevator = elevationTask.getElevator();
-		this.lock= elevationTask.getElevatorLock(); 
+		this.lock= elevationTask.getElevatorLock();
+		this.totalPassengers = elevationTask.totalPassengers;
 		update();
 	}
 	
@@ -33,15 +35,16 @@ public class ElevatorThread implements Runnable{
 	public void run() {
 		log(Level.INFO, "Another thread?");
 		
-		while (true /* Has untransported passengers */) {
-			try {
-				if (interactive) {
+		while (elevationTask.getPassengersTransported() < totalPassengers) {
+			if (interactive) {
+				try {
 					synchronized (lock) {
 						lock.wait();
 					}
+
+				} catch (InterruptedException e) {
+					log(Level.ERROR, "thread was interrupted!");
 				}
-			} catch (InterruptedException e) {
-				log(Level.ERROR, "thread was interrupted!");
 			}
 			
 			/* Open doors */
