@@ -19,7 +19,9 @@ public class ElevationTask {
 	protected final int totalStoreys;
 	protected final int totalPassengers;
 	protected final  Elevator elevator;
+	private final ElevatorThread elevatorController;
 	protected final List<Storey> storeys;
+	private boolean interactive = false;
 
 	public ElevationTask(int totalStoreys, int totalPassengers, int elevatorCapacity) {
 		log(Level.INFO, "Hello from main!");
@@ -33,7 +35,8 @@ public class ElevationTask {
 			storeys.add(new Storey());
 		}
 		
-		elevatorThread = new Thread(new ElevatorThread(this));
+		elevatorController = new ElevatorThread(this);
+		elevatorThread = new Thread(elevatorController);
 	}
 
 	/* Boilerplate */
@@ -61,7 +64,20 @@ public class ElevationTask {
 		return elevatorLock;
 	}
 	
+	public void setInteractive(boolean interactive) {
+		this.interactive = interactive;
+		updateAll();
+	}
+	
+	public boolean isInteractive() {
+		return interactive;
+	}
+	
 	/* Usefull stuff */
+	public void updateAll() {
+		elevatorController.update();
+	}
+	
 	public void startElevation() {
 		elevatorThread.start();
 	}

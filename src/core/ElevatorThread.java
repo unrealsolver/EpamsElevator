@@ -6,11 +6,18 @@ public class ElevatorThread implements Runnable{
 	private final ElevationTask elevationTask;
 	private final Elevator elevator;
 	private final Object lock;
+	private boolean interactive;
 	
 	public ElevatorThread(ElevationTask elevationTask) {
 		this.elevationTask = elevationTask;
 		this.elevator = elevationTask.getElevator();
 		this.lock= elevationTask.getElevatorLock(); 
+		update();
+	}
+	
+	//I don't know how this method could be named else
+	public void update() {
+		this.interactive = elevationTask.isInteractive();
 	}
 	
 	/**
@@ -28,8 +35,10 @@ public class ElevatorThread implements Runnable{
 		
 		while (true /* Has untransported passengers */) {
 			try {
-				synchronized (lock) {
-					lock.wait();
+				if (interactive) {
+					synchronized (lock) {
+						lock.wait();
+					}
 				}
 			} catch (InterruptedException e) {
 				log(Level.ERROR, "thread was interrupted!");
