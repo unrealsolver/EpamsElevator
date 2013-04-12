@@ -2,17 +2,13 @@ package by.epamlab.elevator.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-
 import javax.swing.*;
-
 import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2i;
 
-import com.sun.java.swing.plaf.windows.WindowsBorders;
-
 import core.ElevationTask;
 
+@SuppressWarnings("serial")
 public class ElevatorCanvas extends JPanel {
 	private final ElevationTask elevationTask;
 	private ObjectManager objects = new ObjectManager();

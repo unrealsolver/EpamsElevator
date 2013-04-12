@@ -1,14 +1,11 @@
 package by.epamlab.elevator.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.text.Caret;
-import javax.swing.text.DefaultCaret;
 
 import core.ElevationTask;
 import core.SwingAppender;
@@ -38,7 +35,6 @@ public class MainForm extends JFrame {
 		canvas.setMinimumSize(new Dimension(260, 380)); //WUT? //Do not work, srsly.
 		
 		final JTextArea text = new JTextArea("Have u press the button today?\n"/*"Вы еще не проигрывали сегодня?\n"*/);
-		DefaultCaret textCaret = (DefaultCaret) text.getCaret();
 		text.setCaretPosition(text.getDocument().getLength()); //autoscrolling
 		text.setEditable(false);
 		
@@ -54,8 +50,6 @@ public class MainForm extends JFrame {
 		final class Cell {
 			private int value; 
 			public Cell(int t) { value = t; }
-			public void set(int t) { value = t; }
-			public int get() { return value; }
 			public void inc() { value += 1; };
 			public String toString() { return String.valueOf(value); };
 		}

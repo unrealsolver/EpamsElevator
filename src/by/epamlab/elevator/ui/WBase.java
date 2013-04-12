@@ -2,10 +2,7 @@ package by.epamlab.elevator.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.geom.Dimension2D;
-import java.util.Random;
 
-import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
 public class WBase implements DynamicWidget {
