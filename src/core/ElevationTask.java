@@ -102,8 +102,18 @@ public class ElevationTask {
 		elevatorThread.start();
 	}
 	
-	public boolean hasPassengers() {
-		return false;
+	public Storey getStoreyByPassenger(Passenger passenger) {
+		for (Storey storey : storeys) {
+			if (storey.hasPassenger(passenger)) {
+				return storey;
+			}
+		}
+		
+		return null;
+	}
+	
+	public synchronized Storey getStorey(int storey) {
+		return storeys.get(storey);
 	}
 	
 	public synchronized void log(Level level, Object message) {

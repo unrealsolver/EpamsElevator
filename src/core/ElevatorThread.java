@@ -50,6 +50,11 @@ public class ElevatorThread implements Runnable{
 			/* Open doors */
 			/* Release elevators passengers */
 			/* Invite passengers */
+			Object storeyLock = elevationTask.getStorey(elevator.getStorey()).getLock();
+			synchronized (storeyLock) {
+				storeyLock.notifyAll();
+			}
+			
 			/* Close doors */
 			
 			/* Move to next storey */

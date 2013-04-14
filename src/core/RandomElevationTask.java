@@ -22,7 +22,7 @@ public class RandomElevationTask extends ElevationTask {
 		for (Storey storey : storeys) {
 			
 			for (int i = 0; i < storeyDistribution[currentStorey]; i++) {
-				//Find new destination storey for the passneger. 
+				//Find new destination storey for the passenger. 
 				//Current storey number must not be equal to current storey number
 				while ((destinationStorey = rnd.nextInt(totalStoreys)) == currentStorey) {
 					//pass
@@ -31,8 +31,8 @@ public class RandomElevationTask extends ElevationTask {
 				//Creating new passenger
 				passenger = new Passenger(destinationStorey);
 				
-				//Pushing passenger to story
-				storey.takePassenger(passenger);
+				//Pushing passenger to storey's dispatch container
+				storey.addPassenger(passenger);
 				
 				passengersThreads.add(new Thread(passengersThreadGroup,
 						new PassengerThread(this, passenger),

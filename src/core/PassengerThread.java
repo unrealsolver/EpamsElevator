@@ -5,10 +5,13 @@ import org.apache.log4j.Level;
 public class PassengerThread implements Runnable {
 	private final ElevationTask elevationTask;
 	private final Passenger passenger;
+	private final Object lock;
+	private boolean inElevator;
 	
 	public PassengerThread(ElevationTask elevationTask, Passenger passenger) {
 		this.elevationTask = elevationTask;
 		this.passenger = passenger;
+		lock = elevationTask.getStoreyByPassenger(passenger).getLock();
 	}
 	
 	//FIXME Duplicated code! See ElevatorThread
@@ -23,11 +26,28 @@ public class PassengerThread implements Runnable {
 	
 	@Override
 	public void run() {
-		while (true) {
-			log(Level.INFO, "I'm alive!");
-			
+		inElevator = false;
+		
+		while (!inElevator) {
+			log(Level.INFO, "I came!");
 			try {
-				Thread.sleep(500);
+				synchronized (lock) {
+					lock.wait();
+				}
+				inElevator = true;
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		while (inElevator) {
+			log(Level.INFO, "I came into elevator!");
+			try {
+				synchronized (lock) {
+					lock.wait();
+				}
+				inElevator = false;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
