@@ -31,63 +31,46 @@ public class PassengerThread implements Runnable {
 		inElevator = false;
 		
 		while (!inElevator) {
-			//log(Level.INFO, "I came!");
 			try {
-				//System.out.println("Argh... Wait again...");
 				synchronized (lock) {
 					lock.wait();
 				}
 				
 				try {
-						synchronized (elevatorController.getWaitingLock()) {
-							elevatorController.takePassenger(passenger);
-							//passenger.setState(TransportationActions.BOARDING_OF_PASSENGER);
-							log(Level.INFO, TransportationActions.BOARDING_OF_PASSENGER);
-							inElevator = true;
-						}
+					synchronized (elevatorController.getWaitingLock()) {
+						elevatorController.takePassenger(passenger);
+						//elevationTask.getStoreyByPassenger(passenger).removePassenger(passenger);
+						log(Level.INFO, TransportationActions.BOARDING_OF_PASSENGER);
+						inElevator = true;
+						elevatorController.getWaitingLock().notifyAll();
+					}
 				} catch (ElevatorException e) {
-					//System.err.println(e.getMessage());
+					
 				}
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
 		lock = elevatorController.getContainerLock();
-		//log(Level.INFO, "I came into elevator!");
 		Object waitingLock = elevatorController.getWaitingLock();
 		
 		while (inElevator) {
 			try {
-				//System.err.println("Not my storey!");
-				synchronized (lock) {
-					System.err.println("Passenger waiting");
-					lock.wait();
-				}
 				
-				synchronized (waitingLock) {
+				synchronized (lock) {
+					lock.wait();
 					if (elevatorController.getStorey() == passenger.getDestinationStorey()) {
 						elevatorController.deboardPassenger(passenger);
 						elevationTask.transportPassenger();
 						inElevator = false;
 						log(Level.INFO, TransportationActions.DEBOARDING_OF_PASSENGER);
-						waitingLock.notifyAll();
+					}
 				}
-				}
-				
-				
-				/*Object waitingLock = elevatorController.getWaitingLock();
-				synchronized (waitingLock) {
-					waitingLock.notify();
-				}*/
-				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		//log(Level.INFO, "I fell out :(");
 	}
 }

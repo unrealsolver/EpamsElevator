@@ -127,16 +127,20 @@ public class ElevationTask {
 		
 		System.err.println("In elevator: " + elevator.getPassengers());
 		
+		boolean passengersAtPlace = true;
+		
 		for (int i = 0; i < storeys.size(); i++) {
 			for (Passenger passenger : storeys.get(i).getArrivedPassengers()) {
 				if (passenger.getDestinationStorey() != i) {
+					passengersAtPlace = false;
 					System.err.println("Error! Wrong destination! " + i + " but needed " + passenger.getDestinationStorey());
 				}
 			}
 		}
 		
-		System.err.println("All passengers transported correctly!");
-		
+		if (passengersAtPlace) {
+			System.err.println("All passengers transported correctly!");
+		}
 	}
 	
 	public synchronized Storey getStoreyByPassenger(Passenger passenger) {

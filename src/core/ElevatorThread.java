@@ -69,7 +69,7 @@ public class ElevatorThread implements Runnable{
 	public synchronized void takePassenger(Passenger passenger) {
 		if ((passenger.getDestinationStorey() > elevator.getStorey()) == elevator.isUpward()) {
 			elevator.takePassenger(passenger);
-			elevationTask.getStorey(elevator.getStorey()).removePassenger(passenger);
+			elevationTask.getStoreyByPassenger(passenger).removePassenger(passenger);
 		} else {
 			throw new ElevatorException("Wrong direction");
 		}
@@ -81,39 +81,30 @@ public class ElevatorThread implements Runnable{
 		log(Level.INFO, "Another thread?");
 		
 		while (elevationTask.getPassengersTransported() < totalPassengers) {
-			//log(Level.INFO, "Elevator has been reached " + elevator.getStorey() + " storey.");
 			
 			/* Open doors */
 			/* Release elevators passengers */
-			synchronized (containerLock) {
-				containerLock.notifyAll();
-			}
 			
-			System.err.println("In elevator: " + elevator.getPassengers());
+			//System.err.println("In elevator: " + elevator.getPassengers());
 			
 			synchronized (waitingLock) {
-			if ((elevator.getPassengers() > 0) && elevator.atDistination()) {
-				try {
-					System.err.println("Elevator waiting");
-					waitingLock.wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				while ((elevator.getPassengers() > 0) && elevator.atDistination()) {
+					synchronized (containerLock) {	
+						containerLock.notifyAll();
+						waitingLock.notifyAll();
+					}
 				}
-			}}
-			/*synchronized (waitingLock) {
-				try {
-					waitingLock.wait(2);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}*/
+			}
 			
 			/* Invite passengers */
+			
 			Object storeyLock = elevationTask.getStorey(elevator.getStorey()).getLock();
-			synchronized (storeyLock) {
-				storeyLock.notifyAll();
+			synchronized (waitingLock) {
+				
+					synchronized (storeyLock) {
+						storeyLock.notifyAll();
+						
+				}
 			}
 			
 			/* Close doors */
