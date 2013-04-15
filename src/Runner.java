@@ -50,12 +50,12 @@ public class Runner {
 		/* Starting GUI */
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				/* Start main form */
+				//Start main form 
 				JFrame form = new MainForm(elevationTask);
 				form.setVisible(true);
 			}
 		});
-		
+
 		/* Start all processes */
 		elevationTask.startElevation();
 		

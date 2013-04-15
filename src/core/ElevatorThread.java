@@ -2,8 +2,6 @@ package core;
 
 import org.apache.log4j.Level;
 
-import by.epamlab.elevator.ui.ElevatorCanvas;
-
 public class ElevatorThread implements Runnable{
 	private final ElevationTask elevationTask;
 	private final Elevator elevator;
@@ -23,19 +21,19 @@ public class ElevatorThread implements Runnable{
 		update();
 	}
 	
-	public synchronized Object getLock() {
+	public Object getLock() {
 		return lock;
 	}
 	
-	public synchronized Object getContainerLock() {
+	public  Object getContainerLock() {
 		return containerLock;
 	}
 	
-	public synchronized Object getWaitingLock() {
+	public  Object getWaitingLock() {
 		return waitingLock;
 	}
 	
-	public synchronized int getStorey() {
+	public int getStorey() {
 		return elevator.getStorey();
 	}
 	
@@ -53,20 +51,20 @@ public class ElevatorThread implements Runnable{
 		elevationTask.log(level, message);
 	}
 	
-	public synchronized int getPassengers() {
+	public int getPassengers() {
 		return elevator.getPassengers();
 	}
 	
-	private synchronized void removePassenger(Passenger passenger) {
+	private void removePassenger(Passenger passenger) {
 		elevator.removePassenger(passenger);
 	}
 	
-	public synchronized void deboardPassenger(Passenger passenger) {
+	public void deboardPassenger(Passenger passenger) {
 		removePassenger(passenger);
 		elevationTask.getStorey(elevator.getStorey()).takePassenger(passenger);
 	}
 	
-	public synchronized void takePassenger(Passenger passenger) {
+	public void takePassenger(Passenger passenger) {
 		if ((passenger.getDestinationStorey() > elevator.getStorey()) == elevator.isUpward()) {
 			elevator.takePassenger(passenger);
 			elevationTask.getStoreyByPassenger(passenger).removePassenger(passenger);
@@ -85,7 +83,6 @@ public class ElevatorThread implements Runnable{
 			/* Open doors */
 			/* Release elevators passengers */
 			
-			//System.err.println("In elevator: " + elevator.getPassengers());
 			
 			synchronized (waitingLock) {
 				while ((elevator.getPassengers() > 0) && elevator.atDistination()) {
@@ -95,8 +92,6 @@ public class ElevatorThread implements Runnable{
 					}
 				}
 			}
-			
-			/* Invite passengers */
 			
 			Object storeyLock = elevationTask.getStorey(elevator.getStorey()).getLock();
 			synchronized (waitingLock) {

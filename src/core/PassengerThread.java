@@ -37,13 +37,9 @@ public class PassengerThread implements Runnable {
 				}
 				
 				try {
-					synchronized (elevatorController.getWaitingLock()) {
 						elevatorController.takePassenger(passenger);
-						//elevationTask.getStoreyByPassenger(passenger).removePassenger(passenger);
-						log(Level.INFO, TransportationActions.BOARDING_OF_PASSENGER);
+						//log(Level.INFO, TransportationActions.BOARDING_OF_PASSENGER);
 						inElevator = true;
-						elevatorController.getWaitingLock().notifyAll();
-					}
 				} catch (ElevatorException e) {
 					
 				}
@@ -53,18 +49,16 @@ public class PassengerThread implements Runnable {
 		}
 		
 		lock = elevatorController.getContainerLock();
-		Object waitingLock = elevatorController.getWaitingLock();
 		
 		while (inElevator) {
-			try {
-				
+			try {	
 				synchronized (lock) {
 					lock.wait();
 					if (elevatorController.getStorey() == passenger.getDestinationStorey()) {
 						elevatorController.deboardPassenger(passenger);
 						elevationTask.transportPassenger();
 						inElevator = false;
-						log(Level.INFO, TransportationActions.DEBOARDING_OF_PASSENGER);
+						//log(Level.INFO, TransportationActions.DEBOARDING_OF_PASSENGER);
 					}
 				}
 			} catch (InterruptedException e) {

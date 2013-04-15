@@ -17,15 +17,15 @@ public class Elevator {
 		upward = true;
 	}
 	
-	public synchronized int getStorey() {
+	public int getStorey() {
 		return currentStorey;
 	}
 	
-	public synchronized boolean isUpward() {
+	public boolean isUpward() {
 		return upward;
 	}
 	
-	public synchronized int getPassengers() {
+	public int getPassengers() {
 		return passengers.size();
 	}
 	
@@ -51,15 +51,15 @@ public class Elevator {
 		return false;
 	}
 	
-	public synchronized boolean isFull() {
+	public boolean isFull() {
 		return capacity == passengers.size();
 	}
 	
-	private synchronized void changeDirection() {
+	private void changeDirection() {
 		upward = !upward;
 	}
 	
-	public synchronized void gotoNextStorey() {
+	public void gotoNextStorey() {
 		currentStorey += upward ? 1 : -1;
 		
 		if (currentStorey == 0 || currentStorey == lastStorey) {

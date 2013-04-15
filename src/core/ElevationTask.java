@@ -7,8 +7,6 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import com.sun.swing.internal.plaf.synth.resources.synth;
-
 public class ElevationTask {
 	/* Locks */
 	private final Object elevatorLock = new Object();
@@ -50,15 +48,15 @@ public class ElevationTask {
 	}
 
 	/* Boilerplate */
-	public synchronized int getTotalStoreys() {
+	public int getTotalStoreys() {
 		return totalStoreys;
 	}
 
-	public synchronized int getTotalPassengers() {
+	public int getTotalPassengers() {
 		return totalPassengers;
 	}
 
-	public synchronized Elevator getElevator() {
+	public Elevator getElevator() {
 		return elevator;
 	}
 
@@ -70,7 +68,7 @@ public class ElevationTask {
 		return log;
 	}
 	
-	public synchronized Object getElevatorLock() {
+	public Object getElevatorLock() {
 		return elevatorLock;
 	}
 	
@@ -78,7 +76,7 @@ public class ElevationTask {
 		return passengersTransported;
 	}
 	
-	public synchronized void transportPassenger() {
+	public void transportPassenger() {
 		passengersTransported++;
 	}
 	
@@ -91,7 +89,7 @@ public class ElevationTask {
 		return interactive;
 	}
 	
-	public synchronized ElevatorThread getElevatorController() {
+	public ElevatorThread getElevatorController() {
 		return elevatorController;
 	}
 	
@@ -143,7 +141,7 @@ public class ElevationTask {
 		}
 	}
 	
-	public synchronized Storey getStoreyByPassenger(Passenger passenger) {
+	public Storey getStoreyByPassenger(Passenger passenger) {
 		for (Storey storey : storeys) {
 			if (storey.hasPassenger(passenger)) {
 				return storey;
@@ -153,7 +151,7 @@ public class ElevationTask {
 		return null;
 	}
 	
-	public synchronized Storey getStorey(int storey) {
+	public Storey getStorey(int storey) {
 		return storeys.get(storey);
 	}
 	
