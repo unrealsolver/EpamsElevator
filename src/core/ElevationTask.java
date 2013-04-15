@@ -7,6 +7,8 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import com.sun.swing.internal.plaf.synth.resources.synth;
+
 public class ElevationTask {
 	/* Locks */
 	private final Object elevatorLock = new Object();
@@ -48,19 +50,19 @@ public class ElevationTask {
 	}
 
 	/* Boilerplate */
-	public int getTotalStoreys() {
+	public synchronized int getTotalStoreys() {
 		return totalStoreys;
 	}
 
-	public int getTotalPassengers() {
+	public synchronized int getTotalPassengers() {
 		return totalPassengers;
 	}
 
-	public Elevator getElevator() {
+	public synchronized Elevator getElevator() {
 		return elevator;
 	}
 
-	public List<Storey> getStoreys() {
+	public synchronized List<Storey> getStoreys() {
 		return storeys;
 	}
 	
@@ -68,11 +70,11 @@ public class ElevationTask {
 		return log;
 	}
 	
-	public Object getElevatorLock() {
+	public synchronized Object getElevatorLock() {
 		return elevatorLock;
 	}
 	
-	public int getPassengersTransported() {
+	public synchronized int getPassengersTransported() {
 		return passengersTransported;
 	}
 	
@@ -89,6 +91,10 @@ public class ElevationTask {
 		return interactive;
 	}
 	
+	public synchronized ElevatorThread getElevatorController() {
+		return elevatorController;
+	}
+	
 	/* Usefull stuff */
 	public void updateAll() {
 		elevatorController.update();
@@ -102,7 +108,38 @@ public class ElevationTask {
 		elevatorThread.start();
 	}
 	
-	public Storey getStoreyByPassenger(Passenger passenger) {
+	public synchronized void validate() {
+		System.err.println("Threads: " + passengersThreadGroup.activeCount());
+		
+		int untransported = 0;
+		for (Storey storey : storeys) {
+			untransported += storey.getUntransportedPassengers();
+		}
+		
+		System.err.println("Untransported: " + untransported);
+		
+		int transported = 0;
+		for (Storey storey : storeys) {
+			transported += storey.getTransportedPassengers();
+		}
+		
+		System.err.println("Transported: " + transported + "/" + totalPassengers);
+		
+		System.err.println("In elevator: " + elevator.getPassengers());
+		
+		for (int i = 0; i < storeys.size(); i++) {
+			for (Passenger passenger : storeys.get(i).getArrivedPassengers()) {
+				if (passenger.getDestinationStorey() != i) {
+					System.err.println("Error! Wrong destination! " + i + " but needed " + passenger.getDestinationStorey());
+				}
+			}
+		}
+		
+		System.err.println("All passengers transported correctly!");
+		
+	}
+	
+	public synchronized Storey getStoreyByPassenger(Passenger passenger) {
 		for (Storey storey : storeys) {
 			if (storey.hasPassenger(passenger)) {
 				return storey;

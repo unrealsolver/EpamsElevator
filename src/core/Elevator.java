@@ -17,29 +17,49 @@ public class Elevator {
 		upward = true;
 	}
 	
-	public int getStorey() {
+	public synchronized int getStorey() {
 		return currentStorey;
 	}
 	
-	public void removePassenger(Passenger passenger) {
+	public synchronized boolean isUpward() {
+		return upward;
+	}
+	
+	public synchronized int getPassengers() {
+		return passengers.size();
+	}
+	
+	public synchronized void removePassenger(Passenger passenger) {
 		passengers.remove(passenger);
 	}
 	
-	public void takePassenger(Passenger passenger) {
+	public synchronized void takePassenger(Passenger passenger) {
 		if (!isFull()) {			
 			passengers.add(passenger);
+		} else {
+			throw new ElevatorException("Elevator is full");
 		}
 	}
 	
-	public boolean isFull() {
+	public synchronized boolean atDistination() {
+		for (Passenger passenger : passengers) {
+			if (passenger.getDestinationStorey() == currentStorey) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public synchronized boolean isFull() {
 		return capacity == passengers.size();
 	}
 	
-	private void changeDirection() {
+	private synchronized void changeDirection() {
 		upward = !upward;
 	}
 	
-	public void gotoNextStorey() {
+	public synchronized void gotoNextStorey() {
 		currentStorey += upward ? 1 : -1;
 		
 		if (currentStorey == 0 || currentStorey == lastStorey) {

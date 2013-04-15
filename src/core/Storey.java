@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Storey {
@@ -20,7 +21,7 @@ public class Storey {
 	 * Little bit tricky. Adds passenger to dispatch container
 	 * @param passenger - exactly this passenger
 	 */
-	public void addPassenger(Passenger passenger) {
+	public synchronized void addPassenger(Passenger passenger) {
 		dispatchContainer.add(passenger);
 	}
 	
@@ -28,23 +29,40 @@ public class Storey {
 	 * Adds passenger to arrival container
 	 * @param passenger
 	 */
-	public void takePassenger(Passenger passenger) { 
+	public synchronized void takePassenger(Passenger passenger) { 
 		arrivalContainer.add(passenger);
+	}
+	
+	public synchronized int getUntransportedPassengers() {
+		return dispatchContainer.size();
+	}
+	
+	public synchronized int getTransportedPassengers() {
+		return arrivalContainer.size();
+	}
+	
+	public synchronized List<Passenger> getArrivedPassengers() {
+		return arrivalContainer;
 	}
 	
 	/**
 	 * Returns total count of the passengers in both dispatch/arrival containers
 	 * @return - count of the passengers 
 	 */
-	public int getTotalPassengers() {
+	public synchronized int getTotalPassengers() {
 		return dispatchContainer.size() + arrivalContainer.size();
+	}
+	
+	public synchronized void removePassenger(Passenger passenger) {
+		dispatchContainer.remove(passenger);
+		System.err.println(dispatchContainer.size());
 	}
 	
 	/**
 	 * getLock means get-dispatch-lock.
 	 * @return lock object
 	 */
-	public Object getLock() {
+	public synchronized Object getLock() {
 		return dispatchLock;
 	}
 	
@@ -53,7 +71,7 @@ public class Storey {
 	 * @param otherPassenger
 	 * @return true, if passenger is presents on storey
 	 */
-	public boolean hasPassenger(Passenger otherPassenger) {
+	public synchronized boolean hasPassenger(Passenger otherPassenger) {
 		for (Passenger passenger : dispatchContainer) {
 			if (passenger == otherPassenger) {
 				return true;
