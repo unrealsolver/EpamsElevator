@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectManager {
-	List<DynamicWidget> objects = new ArrayList<DynamicWidget>();
+	private final List<DynamicWidget> objects = new ArrayList<DynamicWidget>();
 	
 	public void add(DynamicWidget object) {
 		objects.add(object);

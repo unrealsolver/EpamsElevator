@@ -8,18 +8,19 @@ import org.jsfml.system.Vector2i;
 public class WBase implements DynamicWidget {
 	/* Inspired by SFML */
 	static final Vector2i DEFAULT_POSITION = new Vector2i(0, 0);
+	static final Vector2i DEFAULT_ORIGIN = new Vector2i(0 ,0);
 	static final Vector2i DEFAULT_SIZE = new Vector2i(20, 20);
-	protected Vector2i position;
-	protected Vector2i size;
+	
+	protected Vector2i position = DEFAULT_POSITION;
+	protected Vector2i origin = DEFAULT_ORIGIN;
+	protected Vector2i size = DEFAULT_SIZE;
 	
 	public WBase() {
-		position = DEFAULT_POSITION;
-		size = DEFAULT_SIZE;
+
 	}
 	
 	public WBase(Vector2i position) {
 		this.position = position;
-		size = DEFAULT_SIZE;
 	}
 	
 	public WBase(Vector2i position, Vector2i size) {
@@ -35,6 +36,14 @@ public class WBase implements DynamicWidget {
 		this.position = position;
 	}
 
+	public Vector2i getOrigin() {
+		return origin;
+	}
+	
+	public void setOrigin(Vector2i origin) {
+		this.origin = origin;
+	}
+	
 	@Override
 	public void draw(Graphics target) {
 		target.setColor(Color.WHITE);

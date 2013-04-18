@@ -25,11 +25,16 @@ public class WStorey extends WBase {
 	public void init() {
 		try {
 			image = ImageIO.read(new File("resources/storey.png"));
+			size = new Vector2i(image.getWidth(), image.getHeight());
 			safemode = false;
 		} catch (IOException e) {
 			safemode = true;
 			System.err.println("Cant load image! Working in safe mode!");
 		}
+	}
+	
+	public Vector2i getSize() {
+		return size;
 	}
 	
 	@Override

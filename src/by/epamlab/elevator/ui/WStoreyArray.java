@@ -1,11 +1,14 @@
 package by.epamlab.elevator.ui;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jsfml.system.Vector2i;
 
 public class WStoreyArray extends WBase {
-	ObjectManager storeys = new ObjectManager();
+	private List<WStorey> storeys = new ArrayList<WStorey>();
+	private int gap = 10;
 	
 	public WStoreyArray(int storeyCount) {
 		super();
@@ -18,23 +21,46 @@ public class WStoreyArray extends WBase {
 	}
 	
 	public void init(int storeyCount) {
-		Vector2i storeyPosition;
 		
 		for (int i = 0; i < storeyCount; i++) {
-			storeyPosition = new Vector2i(position.x, position.y + i*150); //FIXME by image size
-			storeys.add(new WStorey(storeyPosition));
+			storeys.add(new WStorey());
+		}
+		
+		if (storeys.size() > 0 && storeys.get(0) != null) {
+			Vector2i storeySize = storeys.get(0).getSize();
+			gap = storeySize.y;
+			origin = new Vector2i(-storeySize.x, -storeys.size()*gap);
+		}
+		
+		this.setPosition(this.position);
+	}
+	
+	@Override
+	public void setPosition(Vector2i position) {
+		super.setPosition(position);
+		int i = 0;
+		
+		for(WStorey storey : storeys) {
+			storey.setPosition(new Vector2i(position.x + origin.x,
+					position.y - i++ * gap));
 		}
 	}
 	
 	@Override
 	public void draw(Graphics target) {
 		super.draw(target);
-		storeys.drawAll(target);
+		
+		for(WStorey storey : storeys) {
+			storey.draw(target);
+		}
 	}
 	
 	@Override
 	public void update(float dt) {
 		super.update(dt);
-		storeys.updateAll(dt);
+		
+		for(WStorey storey : storeys) {
+			storey.update(dt);
+		}
 	}
 }

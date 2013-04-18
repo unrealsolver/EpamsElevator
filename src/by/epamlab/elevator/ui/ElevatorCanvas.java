@@ -17,6 +17,7 @@ public class ElevatorCanvas extends JPanel {
 	private WText storeyText;
 	private WText inElevatorText;
 	private WText onStoreyText;
+	private WStoreyArray storeys;
 	private float frameTime = 0;
 	private float frameTimeSec = 0;
 	private float tenFramesTime = 0;
@@ -36,13 +37,16 @@ public class ElevatorCanvas extends JPanel {
 		storeyText = new WText(" ", new Vector2i(60, 30));
 		inElevatorText = new WText(" ", new Vector2i(100, 65));
 		onStoreyText = new WText(" ", new Vector2i(4, 65));
+		storeys = new WStoreyArray(elevationTask.getTotalStoreys());
+		storeys.setPosition(new Vector2i(250, 600));
 		
 		objects.add(fpsTextLabel);
 		objects.add(storeyText);
 		objects.add(inElevatorText);
 		objects.add(onStoreyText);
+		objects.add(storeys);
 		
-		box = new WBase();
+		box = new WBase(new Vector2i(250, 200));
 		objects.add(box);
 
 		
@@ -75,9 +79,14 @@ public class ElevatorCanvas extends JPanel {
 		objects.updateAll(frameTime);
 		
 		//Update box representing elevator
-		box.setPosition(new Vector2i(
+/*		box.setPosition(new Vector2i(
 				box.getPosition().x,
 				elevationTask.getElevator().getStorey() * 10)
+		);*/
+		
+		storeys.setPosition(new Vector2i(
+				storeys.getPosition().x,
+				elevationTask.getElevator().getStorey() * 150)
 		);
 		
 		storeyText.setText("LVL: " + elevationTask.getElevator().getStorey());
