@@ -82,7 +82,7 @@ public class ElevatorThread implements Runnable{
 			
 			/* Open doors */
 			/* Release elevators passengers */
-			
+			System.out.println("Storey: ");
 			
 			synchronized (waitingLock) {
 				while ((elevator.getPassengers() > 0) && elevator.atDistination()) {

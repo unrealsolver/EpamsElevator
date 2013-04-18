@@ -41,12 +41,12 @@ public class Runner {
 		}
 		
 		/* Construct task */
-		final ElevationTask elevationTask = new RandomElevationTask(10, 3000, 6);
+		final ElevationTask elevationTask = new RandomElevationTask(10, 30, 6);
 		
 		
 		//TODO if animationBoost...
 		/* Set interactive mode */
-		//elevationTask.setInteractive(true);
+		elevationTask.setInteractive(true);
 		/* Starting GUI */
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {

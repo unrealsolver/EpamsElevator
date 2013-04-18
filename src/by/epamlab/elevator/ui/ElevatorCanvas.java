@@ -14,6 +14,9 @@ public class ElevatorCanvas extends JPanel {
 	private ObjectManager objects = new ObjectManager();
 	private Clock clock;
 	private WText fpsTextLabel;
+	private WText storeyText;
+	private WText inElevatorText;
+	private WText onStoreyText;
 	private float frameTime = 0;
 	private float frameTimeSec = 0;
 	private float tenFramesTime = 0;
@@ -30,17 +33,21 @@ public class ElevatorCanvas extends JPanel {
 	public void init() {
 		this.setBackground(Color.gray);
 		fpsTextLabel = new WText(" ", new Vector2i(4, 30));
-		objects.add(fpsTextLabel);
+		storeyText = new WText(" ", new Vector2i(60, 30));
+		inElevatorText = new WText(" ", new Vector2i(100, 65));
+		onStoreyText = new WText(" ", new Vector2i(4, 65));
 		
-		for (int i = 0; i < 30; i++) {
-			objects.add(new WRotatingBox());
-		}
+		objects.add(fpsTextLabel);
+		objects.add(storeyText);
+		objects.add(inElevatorText);
+		objects.add(onStoreyText);
 		
 		box = new WBase();
 		objects.add(box);
+
 		
 		//objects.add(new WStorey(new Vector2i(50, 250)));
-		objects.add(new WStoreyArray(new Vector2i(10, 100), 5));
+		//objects.add(new WStoreyArray(new Vector2i(10, 100), 5));
 		
 		clock = new Clock();
 		
@@ -72,6 +79,11 @@ public class ElevatorCanvas extends JPanel {
 				box.getPosition().x,
 				elevationTask.getElevator().getStorey() * 10)
 		);
+		
+		storeyText.setText("LVL: " + elevationTask.getElevator().getStorey());
+		inElevatorText.setText("ELV: " + elevationTask.getElevator().getPassengers());
+		onStoreyText.setText("STO" + elevationTask.getStorey(
+				elevationTask.getElevator().getStorey()).getUntransportedPassengers());
 		
 		//FIXME Remove this code! 
 		if (fpsUpdateCounter++ > 10) {
