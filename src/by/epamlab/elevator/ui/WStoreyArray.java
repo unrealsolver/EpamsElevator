@@ -8,7 +8,7 @@ import org.jsfml.system.Vector2i;
 
 public class WStoreyArray extends WBase {
 	private List<WStorey> storeys = new ArrayList<WStorey>();
-	private int gap = 10;
+	private int vSize = 10;
 	
 	public WStoreyArray(int storeyCount) {
 		super();
@@ -28,22 +28,26 @@ public class WStoreyArray extends WBase {
 		
 		if (storeys.size() > 0 && storeys.get(0) != null) {
 			Vector2i storeySize = storeys.get(0).getSize();
-			gap = storeySize.y;
-			origin = new Vector2i(-storeySize.x, -storeys.size()*gap);
+			vSize = storeySize.y;
+			origin = new Vector2i(storeySize.x, storeys.size()*vSize);
 		}
-		
+
 		this.setPosition(this.position);
 	}
 	
 	@Override
 	public void setPosition(Vector2i position) {
 		super.setPosition(position);
+
 		int i = 0;
-		
 		for(WStorey storey : storeys) {
-			storey.setPosition(new Vector2i(position.x + origin.x,
-					position.y - i++ * gap));
+			storey.setPosition(new Vector2i(position.x - origin.x,
+					position.y - i++ * vSize));
 		}
+	}
+	
+	public void moveToStorey(int storey) {
+		setPosition(new Vector2i(position.x, position.y + storey * vSize));
 	}
 	
 	@Override

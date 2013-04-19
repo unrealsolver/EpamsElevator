@@ -25,14 +25,13 @@ public class MainForm extends JFrame {
 	
 	public final void initUI() {
 		setTitle("Elevator GUI");
-		//setSize(400, 200);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//setResizable(false);
 		
 		JPanel canvas = new ElevatorCanvas(elevationTask);
-		canvas.setPreferredSize(new Dimension(260, 380));
-		canvas.setMinimumSize(new Dimension(260, 380)); //WUT? //Do not work, srsly.
+		canvas.setPreferredSize(new Dimension(360, 480));
+		canvas.setMinimumSize(new Dimension(360, 480)); //WUT? //Do not work, srsly.
 		
 		final JTextArea textArea = new JTextArea("Have u press the button today?\n"/*"Вы еще не проигрывали сегодня?\n"*/);
 		textArea.setCaretPosition(textArea.getDocument().getLength()); //autoscrolling
@@ -72,7 +71,7 @@ public class MainForm extends JFrame {
 		buttonPanel.add(godButton);
 		
 		JPanel mainPanel = new JPanel(new BorderLayout());
-		mainPanel.setPreferredSize(new Dimension(260, 380));
+		mainPanel.setPreferredSize(new Dimension(360, 380));
 		mainPanel.add(textScroll, BorderLayout.CENTER);
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		

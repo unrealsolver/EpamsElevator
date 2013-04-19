@@ -38,7 +38,7 @@ public class ElevatorCanvas extends JPanel {
 		inElevatorText = new WText(" ", new Vector2i(100, 65));
 		onStoreyText = new WText(" ", new Vector2i(4, 65));
 		storeys = new WStoreyArray(elevationTask.getTotalStoreys());
-		storeys.setPosition(new Vector2i(250, 600));
+		storeys.setPosition(new Vector2i(250, 400));
 		
 		objects.add(fpsTextLabel);
 		objects.add(storeyText);
@@ -84,10 +84,11 @@ public class ElevatorCanvas extends JPanel {
 				elevationTask.getElevator().getStorey() * 10)
 		);*/
 		
-		storeys.setPosition(new Vector2i(
+		storeys.moveToStorey(elevationTask.getElevator().getStorey());
+		/*storeys.setPosition(new Vector2i(
 				storeys.getPosition().x,
 				elevationTask.getElevator().getStorey() * 150)
-		);
+		);*/
 		
 		storeyText.setText("LVL: " + elevationTask.getElevator().getStorey());
 		inElevatorText.setText("ELV: " + elevationTask.getElevator().getPassengers());
