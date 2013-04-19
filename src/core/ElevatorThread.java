@@ -10,6 +10,7 @@ public class ElevatorThread implements Runnable{
 	private final Object waitingLock;
 	private int totalPassengers;
 	private boolean interactive;
+	private int lastStorey;
 	
 	public ElevatorThread(ElevationTask elevationTask) {
 		this.elevationTask = elevationTask;
@@ -76,13 +77,15 @@ public class ElevatorThread implements Runnable{
 	
 	@Override
 	public void run() {
+		log(Level.INFO, TransportationActions.STARTING_TRANSPORTATION);
+		
 		log(Level.INFO, "Another thread?");
+		lastStorey = getStorey();
 		
 		while (elevationTask.getPassengersTransported() < totalPassengers) {
 			
 			/* Open doors */
 			/* Release elevators passengers */
-			System.out.println("Storey: ");
 			
 			synchronized (waitingLock) {
 				while ((elevator.getPassengers() > 0) && elevator.atDistination()) {
@@ -111,14 +114,19 @@ public class ElevatorThread implements Runnable{
 					}
 
 				} catch (InterruptedException e) {
-					log(Level.ERROR, "thread was interrupted!");
+					log(Level.ERROR, TransportationActions.ABORTING_TRANSPORTATION);
+					break;
 				}
 			}
 			
 			/* Move to next storey */
 			elevator.gotoNextStorey();
+			log(Level.INFO, TransportationActions.MOVING_ELEVATOR +
+					" " + lastStorey + " " + getStorey());
+			lastStorey = getStorey();
 		}
 		
+		log(Level.INFO, TransportationActions.COMPLETION_TRANSPORTATION);
 		elevationTask.validate();
 	}
 }

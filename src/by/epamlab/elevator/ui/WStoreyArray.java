@@ -11,6 +11,9 @@ public class WStoreyArray extends WBase {
 	private List<WStorey> storeys = new ArrayList<WStorey>();
 	private Vector2i offset; //Storey offset
 	private int vSize = 10; //Just default value for storey height
+	private float speed = 1;	// \
+	private boolean ready;		// | Wow... It will be implemented next time.
+	private int targetStorey;	// /
 	
 	public WStoreyArray(int storeyCount) {
 		super();
@@ -41,6 +44,7 @@ public class WStoreyArray extends WBase {
 	
 	public void moveToStorey(int level) {
 		offset = new Vector2i(0, level*vSize);
+		targetStorey = level;
 		
 		int i = 0;
 		for(WStorey storey : storeys) {

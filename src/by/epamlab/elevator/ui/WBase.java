@@ -67,7 +67,11 @@ public class WBase implements DynamicWidget {
 	public void setLineWidth(float lineWidth) {
 		this.lineWidth = lineWidth;
 	}
-
+	
+	public Color getColor() {
+		return color;
+	}
+	
 	public void setColor(Color color) {
 		this.color = color;
 	}

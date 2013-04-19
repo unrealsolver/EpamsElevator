@@ -34,7 +34,7 @@ public class WText extends WBase {
 
 	public void init() {
 		as = new AttributedString(text);
-		as.addAttribute(TextAttribute.FOREGROUND, Color.YELLOW); //I'm just lazy
+		as.addAttribute(TextAttribute.FOREGROUND, super.getColor()); //I'm just lazy
 		as.addAttribute(TextAttribute.FONT, new Font("Impact", 0, 30));
 	}
 	

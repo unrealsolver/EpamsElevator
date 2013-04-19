@@ -20,6 +20,7 @@ public class ElevationTask {
 	private final Thread elevatorThread;
 	
 	/* Content */
+	private TransportationState state = TransportationState.NOT_STARTED;
 	protected final int totalStoreys;
 	protected final int totalPassengers;
 	protected final  Elevator elevator;
@@ -45,6 +46,9 @@ public class ElevationTask {
 		
 		elevatorController = new ElevatorThread(this);
 		elevatorThread = new Thread(elevatorController, "ELEVATOR");
+		
+		//I think it isn't good idea...
+		state = TransportationState.COMPLETED;
 	}
 
 	/* Boilerplate */
@@ -93,6 +97,10 @@ public class ElevationTask {
 		return elevatorController;
 	}
 	
+	public TransportationState getState() {
+		return state;
+	}
+	
 	/* Usefull stuff */
 	public void updateAll() {
 		elevatorController.update();
@@ -104,6 +112,14 @@ public class ElevationTask {
 		}
 		
 		elevatorThread.start();
+		
+		state = TransportationState.IN_PROGRESS;
+	}
+	
+	public void interrupt() {
+		passengersThreadGroup.interrupt();
+		elevatorThread.interrupt();
+		state = TransportationState.ABORTED;
 	}
 	
 	public synchronized void validate() {

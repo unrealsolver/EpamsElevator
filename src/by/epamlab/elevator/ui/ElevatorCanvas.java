@@ -13,6 +13,10 @@ public class ElevatorCanvas extends JPanel {
 	private final ElevationTask elevationTask;
 	private ObjectManager objects = new ObjectManager();
 	private Clock clock;
+	
+	//For controlling main button
+	private JButton godButton;
+	
 	private WText fpsTextLabel;
 	private WText storeyText;
 	private WText inElevatorText;
@@ -23,11 +27,10 @@ public class ElevatorCanvas extends JPanel {
 	private float tenFramesTime = 0;
 	private int fpsUpdateCounter = 0;
 	
-	private WBase box;
-	
-	public ElevatorCanvas(ElevationTask elevationTask) {
+	public ElevatorCanvas(ElevationTask elevationTask, JButton godButton) {
 		super();
 		this.elevationTask = elevationTask; 
+		this.godButton = godButton;
 		init();
 	}
 	
@@ -38,20 +41,13 @@ public class ElevatorCanvas extends JPanel {
 		inElevatorText = new WText(" ", new Vector2i(100, 65));
 		onStoreyText = new WText(" ", new Vector2i(4, 65));
 		storeys = new WStoreyArray(elevationTask.getTotalStoreys());
-		storeys.setPosition(new Vector2i(100, 100));
+		storeys.setPosition(new Vector2i(150, 100));
 		
 		objects.add(fpsTextLabel);
 		objects.add(storeyText);
 		objects.add(inElevatorText);
 		objects.add(onStoreyText);
 		objects.addLast(storeys);
-		
-		box = new WBase(new Vector2i(250, 200));
-		objects.add(box);
-
-		
-		//objects.add(new WStorey(new Vector2i(50, 250)));
-		//objects.add(new WStoreyArray(new Vector2i(10, 100), 5));
 		
 		clock = new Clock();
 		
@@ -92,7 +88,7 @@ public class ElevatorCanvas extends JPanel {
 		
 		storeyText.setText("LVL: " + elevationTask.getElevator().getStorey());
 		inElevatorText.setText("ELV: " + elevationTask.getElevator().getPassengers());
-		onStoreyText.setText("STO" + elevationTask.getStorey(
+		onStoreyText.setText("STO: " + elevationTask.getStorey(
 				elevationTask.getElevator().getStorey()).getUntransportedPassengers());
 		
 		//FIXME Remove this code! 

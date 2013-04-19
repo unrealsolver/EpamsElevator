@@ -16,6 +16,7 @@ public class MainForm extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final ElevationTask elevationTask;
+	private final JButton godButton = new JButton("press me");
 	
 	public MainForm(ElevationTask elevationTask) {
 		super();
@@ -27,13 +28,12 @@ public class MainForm extends JFrame {
 		setTitle("Elevator GUI");
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		//setResizable(false);
 		
-		JPanel canvas = new ElevatorCanvas(elevationTask);
+		JPanel canvas = new ElevatorCanvas(elevationTask, godButton);
 		canvas.setPreferredSize(new Dimension(360, 480));
 		canvas.setMinimumSize(new Dimension(360, 480)); //WUT? //Do not work, srsly.
 		
-		final JTextArea textArea = new JTextArea("Have u press the button today?\n"/*"Вы еще не проигрывали сегодня?\n"*/);
+		final JTextArea textArea = new JTextArea("");
 		textArea.setCaretPosition(textArea.getDocument().getLength()); //autoscrolling
 		textArea.setEditable(false);
 		
@@ -44,7 +44,7 @@ public class MainForm extends JFrame {
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		final JButton godButton = new JButton("Press"/*"Проиграть"*/);
+		final JButton stepButton = new JButton("Step");
 		
 		final class Cell {
 			private int value; 
@@ -53,21 +53,30 @@ public class MainForm extends JFrame {
 			public String toString() { return String.valueOf(value); };
 		}
 		
-		final Cell proigralRaz = new Cell(0);
-		godButton.addActionListener(new ActionListener() {
+		final Cell counter = new Cell(0);
+		stepButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				proigralRaz.inc();
-				textArea.append("You press the button: "/*"Сколько раз вы проигрывали: "*/ + proigralRaz + "\n"); //Do not know how to workaround \n
+				counter.inc();
+				textArea.append("__button_pressed__" + counter + "\n");
 				//TODO: ELEVATION_TASK -> GET_STATE -> DETERMINE -> SWITCH STATE AND CAPTION
-				godButton.setText("Pressed "/*"Проиграно: "*/ + proigralRaz);
+				stepButton.setText("Pressed " + counter);
 				synchronized (elevationTask.getElevatorLock()) {
 					elevationTask.getElevatorLock().notify();
 				}
 			}
 		});
 		
+		godButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				elevationTask.interrupt();
+			}
+		});
+		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+		buttonPanel.add(stepButton);
 		buttonPanel.add(godButton);
 		
 		JPanel mainPanel = new JPanel(new BorderLayout());
