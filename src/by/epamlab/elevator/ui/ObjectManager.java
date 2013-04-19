@@ -2,13 +2,18 @@ package by.epamlab.elevator.ui;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ObjectManager {
-	private final List<DynamicWidget> objects = new ArrayList<DynamicWidget>();
+	private final List<DynamicWidget> objects = new LinkedList<DynamicWidget>();
 	
 	public void add(DynamicWidget object) {
 		objects.add(object);
+	}
+	
+	public void addLast(DynamicWidget object) {
+		((LinkedList<DynamicWidget>) objects).addFirst(object);
 	}
 	
 	public void drawAll(Graphics target) {

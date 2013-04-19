@@ -38,13 +38,13 @@ public class ElevatorCanvas extends JPanel {
 		inElevatorText = new WText(" ", new Vector2i(100, 65));
 		onStoreyText = new WText(" ", new Vector2i(4, 65));
 		storeys = new WStoreyArray(elevationTask.getTotalStoreys());
-		storeys.setPosition(new Vector2i(250, 400));
+		storeys.setPosition(new Vector2i(100, 100));
 		
 		objects.add(fpsTextLabel);
 		objects.add(storeyText);
 		objects.add(inElevatorText);
 		objects.add(onStoreyText);
-		objects.add(storeys);
+		objects.addLast(storeys);
 		
 		box = new WBase(new Vector2i(250, 200));
 		objects.add(box);

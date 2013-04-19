@@ -1,5 +1,6 @@
 package by.epamlab.elevator.ui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,8 @@ import org.jsfml.system.Vector2i;
 
 public class WStoreyArray extends WBase {
 	private List<WStorey> storeys = new ArrayList<WStorey>();
-	private int vSize = 10;
+	private Vector2i offset; //Storey offset
+	private int vSize = 10; //Just default value for storey height
 	
 	public WStoreyArray(int storeyCount) {
 		super();
@@ -29,34 +31,31 @@ public class WStoreyArray extends WBase {
 		if (storeys.size() > 0 && storeys.get(0) != null) {
 			Vector2i storeySize = storeys.get(0).getSize();
 			vSize = storeySize.y;
-			origin = new Vector2i(storeySize.x, storeys.size()*vSize);
+			origin = new Vector2i(storeySize.x, storeySize.y);
 		}
 
-		this.setPosition(this.position);
+		super.setColor(Color.RED);
+		super.setSize(new Vector2i(5,5));
+		super.setLineWidth(4);
 	}
 	
-	@Override
-	public void setPosition(Vector2i position) {
-		super.setPosition(position);
-
+	public void moveToStorey(int level) {
+		offset = new Vector2i(0, level*vSize);
+		
 		int i = 0;
 		for(WStorey storey : storeys) {
-			storey.setPosition(new Vector2i(position.x - origin.x,
-					position.y - i++ * vSize));
+			storey.setPosition(new Vector2i(position.x + offset.x,
+					position.y + offset.y - i++ * vSize));
 		}
-	}
-	
-	public void moveToStorey(int storey) {
-		setPosition(new Vector2i(position.x, position.y + storey * vSize));
 	}
 	
 	@Override
 	public void draw(Graphics target) {
-		super.draw(target);
-		
 		for(WStorey storey : storeys) {
 			storey.draw(target);
 		}
+		
+		super.draw(target);
 	}
 	
 	@Override
