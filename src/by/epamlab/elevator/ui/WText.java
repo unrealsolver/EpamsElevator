@@ -18,10 +18,15 @@ public class WText extends WBase {
 	
 	public WText() {
 		super();
-		text = new String();
+		text = new String(" ");
 		init();
 	}
 	
+	public WText(Vector2i position) {
+		super(position);
+		text = new String(" ");
+		init();
+	}
 	public WText(String text) {
 		super();
 		this.text = text;
@@ -45,7 +50,7 @@ public class WText extends WBase {
 	
 	public void fontRebuild() {
 		as = new AttributedString(text);
-		as.addAttribute(TextAttribute.FOREGROUND, super.getColor());
+		as.addAttribute(TextAttribute.FOREGROUND, super.getColor()); //Using superclass color
 		as.addAttribute(TextAttribute.FONT, new Font(fontFamily, fontStyle, fontSize));
 	}
 	
@@ -96,7 +101,7 @@ public class WText extends WBase {
 
 	@Override
 	public void draw(Graphics target) {
-		target.drawString(as.getIterator(), position.x, position.y);
+		target.drawString(as.getIterator(), realPos.x, realPos.y);
 	}
 
 	@Override

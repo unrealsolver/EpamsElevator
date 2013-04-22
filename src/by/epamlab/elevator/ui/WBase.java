@@ -21,6 +21,7 @@ public class WBase implements DynamicWidget {
 	protected Vector2i position = DEFAULT_POSITION;
 	protected Vector2i origin = DEFAULT_ORIGIN;
 	protected Vector2i size = DEFAULT_SIZE;
+	protected Vector2i realPos = DEFAULT_POSITION;
 	
 	
 	public WBase() {
@@ -42,6 +43,7 @@ public class WBase implements DynamicWidget {
 
 	public void setPosition(Vector2i position) {
 		this.position = position;
+		realPos = Vector2i.add(position, origin);
 	}
 
 	public Vector2i getOrigin() {
@@ -50,6 +52,7 @@ public class WBase implements DynamicWidget {
 	
 	public void setOrigin(Vector2i origin) {
 		this.origin = origin;
+		realPos = Vector2i.add(position, origin);
 	}
 	
 	public Vector2i getSize() {
@@ -80,7 +83,7 @@ public class WBase implements DynamicWidget {
 	public void draw(Graphics target) {
 		target.setColor(color);
 		((Graphics2D) target).setStroke(new BasicStroke(lineWidth)); 
-		target.drawRect(position.x + origin.x, position.y + origin.y, size.x, size.y);
+		target.drawRect(realPos.x, realPos.y, size.x, size.y);
 	}
 	
 	@Override

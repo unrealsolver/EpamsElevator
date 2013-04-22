@@ -11,6 +11,7 @@ import org.jsfml.system.Vector2i;
 public class WStorey extends WBase {
 	private BufferedImage image;
 	private boolean safemode;
+	private WText text;
 	
 	public WStorey() {
 		super();
@@ -23,6 +24,8 @@ public class WStorey extends WBase {
 	}
 	
 	public void init() {
+		text = new WText("storehhhhhhhhy", position);
+		text.setOrigin(new Vector2i(5, text.getFontSize()));
 		try {
 			image = ImageIO.read(new File("resources/storey.png"));
 			size = new Vector2i(image.getWidth(), image.getHeight());
@@ -33,8 +36,14 @@ public class WStorey extends WBase {
 		}
 	}
 	
-	public Vector2i getSize() {
-		return size;
+	@Override
+	public void setPosition(Vector2i position) {
+		super.setPosition(position);
+		text.setPosition(position);
+	}
+	
+	public void setText(String str) {
+		text.setText(str);
 	}
 	
 	@Override
@@ -42,6 +51,7 @@ public class WStorey extends WBase {
 		super.draw(target);
 		if (!safemode) {
 			target.drawImage(image, position.x, position.y, null);
+			text.draw(target);
 		}
 	}
 	
