@@ -13,6 +13,10 @@ public class WStorey extends WBase {
 	private boolean safemode;
 	private WText text;
 	
+	private int untransportedCount;
+	private int transportedCount;
+	private int storeyNo;
+	
 	public WStorey() {
 		super();
 		init();
@@ -42,8 +46,23 @@ public class WStorey extends WBase {
 		text.setPosition(position);
 	}
 	
-	public void setText(String str) {
-		text.setText(str);
+	public void setStoreyNo(int storeyNo) {
+		this.storeyNo = storeyNo;
+		rebuildText();
+	}
+	
+	public void setUntransportedCount(int untransportedCount) {
+		this.untransportedCount = untransportedCount;
+		rebuildText();
+	}
+	
+	public void setTransportedCount(int transportedCount) {
+		this.transportedCount = transportedCount;
+		rebuildText();
+	}
+	
+	public void rebuildText() {
+		text.setText("#" + storeyNo + /*入*/"  IN " + untransportedCount + /*出*/"  OUT " + transportedCount);
 	}
 	
 	@Override

@@ -31,7 +31,7 @@ public class ElevationTask {
 
 	public ElevationTask(int totalStoreys, int totalPassengers, int elevatorCapacity) {
 		log(Level.INFO, "Hello from main!");
-		this.totalStoreys = totalPassengers;
+		this.totalStoreys = totalStoreys;
 		this.totalPassengers = totalPassengers;
 		
 		elevator = new Elevator(elevatorCapacity, totalStoreys);
@@ -102,6 +102,30 @@ public class ElevationTask {
 	}
 	
 	/* Usefull stuff */
+	public int[] getUntransportedDistribution() {
+		int[] distribution = new int[totalStoreys];
+		int i = 0;
+		
+		for (Storey storey : storeys) {
+			distribution[i] = storey.getUntransportedPassengers();
+			i++;
+		}
+		
+		return distribution;
+	}
+	
+	public int[] getTransportedDistribution() {
+		int[] distribution = new int[totalStoreys];
+		int i = 0;
+		
+		for (Storey storey : storeys) {
+			distribution[i] = storey.getTransportedPassengers();
+			i++;
+		}
+		
+		return distribution;
+	}
+	
 	public void updateAll() {
 		elevatorController.update();
 	}

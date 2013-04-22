@@ -7,13 +7,15 @@ import java.util.List;
 
 import org.jsfml.system.Vector2i;
 
+import core.ElevationTask;
+
 public class WStoreyArray extends WBase {
 	private List<WStorey> storeys = new ArrayList<WStorey>();
+	private int[] untransportedDistribution;
+	private int[] transportedDistribution;
 	private Vector2i offset; //Storey offset
 	private int vSize = 10; //Just default value for storey height
-	private float speed = 1;	// \
-	private boolean ready;		// | Wow... It will be implemented next time.
-	private int targetStorey;	// /
+	private int targetStorey = -1;
 	
 	public WStoreyArray(int storeyCount) {
 		super();
@@ -26,9 +28,15 @@ public class WStoreyArray extends WBase {
 	}
 	
 	public void init(int storeyCount) {
+		WStorey storey;
+		System.err.println(storeyCount);
+		untransportedDistribution= new int[storeyCount];
+		transportedDistribution= new int[storeyCount];
 		
 		for (int i = 0; i < storeyCount; i++) {
-			storeys.add(new WStorey());
+			storey = new WStorey();
+			storey.setStoreyNo(i);
+			storeys.add(storey);
 		}
 		
 		if (storeys.size() > 0 && storeys.get(0) != null) {
@@ -42,14 +50,33 @@ public class WStoreyArray extends WBase {
 		super.setLineWidth(4);
 	}
 	
+	public void setUntransportedDistribution(int[] distribution) {
+		untransportedDistribution = distribution;
+	}
+	
+	public void setTransportedDistribution(int[] distribution) {
+		transportedDistribution = distribution;
+	}
+	
+	public void setTargetStorey(int storey) {
+		targetStorey = storey;
+	}
+	
 	public void moveToStorey(int level) {
-		offset = new Vector2i(0, level*vSize);
-		targetStorey = level;
-		
-		int i = 0;
-		for(WStorey storey : storeys) {
-			storey.setPosition(new Vector2i(position.x + offset.x,
-					position.y + offset.y - i++ * vSize));
+		//Some optimization
+		if (targetStorey != level) {
+			targetStorey = level;
+			
+			offset = new Vector2i(0, level*vSize);
+			
+			int i = 0;
+			for(WStorey storey : storeys) {
+				storey.setUntransportedCount(untransportedDistribution[i]);
+				storey.setTransportedCount(transportedDistribution[i]);
+				storey.setPosition(new Vector2i(position.x + offset.x,
+						position.y + offset.y - i * vSize));
+				i++;
+			}
 		}
 	}
 	

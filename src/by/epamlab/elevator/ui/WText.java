@@ -41,7 +41,7 @@ public class WText extends WBase {
 	}
 
 	public void init() {
-		fontFamily = "Arial";
+		fontFamily = "Sans";
 		fontStyle = Font.BOLD;
 		fontSize = 14;
 		super.setColor(Color.GREEN);

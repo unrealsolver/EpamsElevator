@@ -2,6 +2,8 @@ package by.epamlab.elevator.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.IOException;
+
 import javax.swing.*;
 import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2i;
@@ -22,6 +24,7 @@ public class ElevatorCanvas extends JPanel {
 	private WText inElevatorText;
 	private WText onStoreyText;
 	private WStoreyArray storeys;
+	private WTexturedBox elevator;
 	private float frameTime = 0;
 	private float frameTimeSec = 0;
 	private float tenFramesTime = 0;
@@ -41,13 +44,34 @@ public class ElevatorCanvas extends JPanel {
 		inElevatorText = new WText(" ", new Vector2i(100, 65));
 		onStoreyText = new WText(" ", new Vector2i(4, 65));
 		storeys = new WStoreyArray(elevationTask.getTotalStoreys());
-		storeys.setPosition(new Vector2i(150, 100));
+		
+		Vector2i pos = new Vector2i(150, 250);
+		storeys.setPosition(pos);
+		Vector2i origin = storeys.getOrigin();
+		
+		elevator = new WTexturedBox(pos);
+		
+		try {
+			elevator.loadFromFile("resources/elevator.png");
+		} catch (IOException e) {
+			System.err.println("Image file not found! " + e.getMessage());
+		}
+		
+		Vector2i ownSize = elevator.getSize();
+		Vector2i adjustment = new Vector2i(-4, 17);
+		
+		pos = new Vector2i(	pos.x + origin.x/2 - ownSize.x/2 + adjustment.x,
+							pos.y + origin.y/2 - ownSize.y/2 + adjustment.y);
+		
+		elevator.setPosition(pos);
+		
 		
 		objects.add(fpsTextLabel);
 		objects.add(storeyText);
 		objects.add(inElevatorText);
 		objects.add(onStoreyText);
 		objects.addLast(storeys);
+		objects.add(elevator);
 		
 		clock = new Clock();
 		
@@ -79,7 +103,9 @@ public class ElevatorCanvas extends JPanel {
 				box.getPosition().x,
 				elevationTask.getElevator().getStorey() * 10)
 		);*/
-		
+
+		storeys.setUntransportedDistribution(elevationTask.getUntransportedDistribution());
+		storeys.setTransportedDistribution(elevationTask.getTransportedDistribution());
 		storeys.moveToStorey(elevationTask.getElevator().getStorey());
 		/*storeys.setPosition(new Vector2i(
 				storeys.getPosition().x,

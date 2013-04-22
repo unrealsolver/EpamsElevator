@@ -79,6 +79,8 @@ public class WBase implements DynamicWidget {
 		this.color = color;
 	}
 	
+	//FIXME COPY ORIGIN IMPL FROM SFML!!!
+	//FIXME JUST FIXME!11
 	@Override
 	public void draw(Graphics target) {
 		target.setColor(color);
