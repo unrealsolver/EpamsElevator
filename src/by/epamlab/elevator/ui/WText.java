@@ -12,7 +12,10 @@ public class WText extends WBase {
 	private String text;
 	private AttributedString as;
 	private Font font;
-
+	private String fontFamily;
+	private int fontSize;
+	private int fontStyle;
+	
 	public WText() {
 		super();
 		text = new String();
@@ -33,9 +36,17 @@ public class WText extends WBase {
 	}
 
 	public void init() {
+		fontFamily = "Arial";
+		fontStyle = Font.BOLD;
+		fontSize = 14;
+		super.setColor(Color.GREEN);
+		fontRebuild();
+	}
+	
+	public void fontRebuild() {
 		as = new AttributedString(text);
-		as.addAttribute(TextAttribute.FOREGROUND, super.getColor()); //I'm just lazy
-		as.addAttribute(TextAttribute.FONT, new Font("Impact", 0, 30));
+		as.addAttribute(TextAttribute.FOREGROUND, super.getColor());
+		as.addAttribute(TextAttribute.FONT, new Font(fontFamily, fontStyle, fontSize));
 	}
 	
 	public String getText() {
@@ -44,7 +55,7 @@ public class WText extends WBase {
 
 	public void setText(String text) {
 		this.text = text;
-		init();
+		fontRebuild();
 	}
 	
 	public Font getFont() {
@@ -53,6 +64,34 @@ public class WText extends WBase {
 
 	public void setFont(Font font) {
 		this.font = font;
+		fontRebuild();
+	}
+
+	public String getFontFamily() {
+		return fontFamily;
+	}
+
+	public void setFontFamily(String fontFamily) {
+		this.fontFamily = fontFamily;
+		fontRebuild();
+	}
+
+	public int getFontSize() {
+		return fontSize;
+	}
+
+	public void setFontSize(int fontSize) {
+		this.fontSize = fontSize;
+		fontRebuild();
+	}
+
+	public int getFontStyle() {
+		return fontStyle;
+	}
+
+	public void setFontStyle(int fontStyle) {
+		this.fontStyle = fontStyle;
+		fontRebuild();
 	}
 
 	@Override
