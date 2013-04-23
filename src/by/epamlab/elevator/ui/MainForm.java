@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import core.ElevationTask;
-import core.SwingAppender;
+import by.epamlab.elevator.core.ElevationTask;
+
 
 public class MainForm extends JFrame {
 	/**
@@ -31,7 +31,7 @@ public class MainForm extends JFrame {
 		
 		JPanel canvas = new ElevatorCanvas(elevationTask, godButton);
 		canvas.setPreferredSize(new Dimension(360, 480));
-		canvas.setMinimumSize(new Dimension(360, 480)); //WUT? //Do not work, srsly.
+		canvas.setMinimumSize(new Dimension(360, 480)); //Do not work, srsly.
 		
 		final JTextArea textArea = new JTextArea("");
 		textArea.setCaretPosition(textArea.getDocument().getLength()); //autoscrolling

@@ -1,4 +1,4 @@
-package core;
+package by.epamlab.elevator.core;
 
 public class Passenger {
 	private final int id;

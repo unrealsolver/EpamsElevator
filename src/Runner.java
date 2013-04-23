@@ -5,9 +5,9 @@ import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import core.ElevationTask;
-import core.RandomElevationTask;
 
+import by.epamlab.elevator.core.ElevationTask;
+import by.epamlab.elevator.core.RandomElevationTask;
 import by.epamlab.elevator.ui.MainForm;
 
 public class Runner {

@@ -7,7 +7,8 @@ import java.util.List;
 
 import org.jsfml.system.Vector2i;
 
-import core.ElevationTask;
+import by.epamlab.elevator.core.ElevationTask;
+
 
 public class WStoreyArray extends WBase {
 	private List<WStorey> storeys = new ArrayList<WStorey>();

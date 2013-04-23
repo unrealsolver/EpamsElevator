@@ -1,4 +1,4 @@
-package core;
+package by.epamlab.elevator.ui;
 
 import javax.swing.JTextArea;
 

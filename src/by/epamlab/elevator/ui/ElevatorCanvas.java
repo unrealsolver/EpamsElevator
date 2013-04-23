@@ -8,9 +8,10 @@ import javax.swing.*;
 import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2i;
 
+import by.epamlab.elevator.core.ElevationTask;
+
 import com.sun.java.swing.plaf.windows.WindowsBorders;
 
-import core.ElevationTask;
 
 @SuppressWarnings("serial")
 public class ElevatorCanvas extends JPanel {

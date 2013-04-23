@@ -1,4 +1,4 @@
-package core;
+package by.epamlab.elevator.core;
 
 public class IDManager {
 	private static int id = 0;

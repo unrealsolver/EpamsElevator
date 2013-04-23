@@ -1,4 +1,4 @@
-package core;
+package by.epamlab.elevator.core;
 
 import java.util.Arrays;
 import java.util.Random;

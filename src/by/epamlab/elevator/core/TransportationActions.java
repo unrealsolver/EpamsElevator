@@ -1,4 +1,4 @@
-package core;
+package by.epamlab.elevator.core;
 
 public enum TransportationActions {
 	STARTING_TRANSPORTATION, COMPLETION_TRANSPORTATION, ABORTING_TRANSPORTATION,

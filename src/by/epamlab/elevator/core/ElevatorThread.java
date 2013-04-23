@@ -1,4 +1,4 @@
-package core;
+package by.epamlab.elevator.core;
 
 import org.apache.log4j.Level;
 

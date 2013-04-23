@@ -1,4 +1,4 @@
-package core;
+package by.epamlab.elevator.core;
 
 @SuppressWarnings("serial")
 public class ElevatorException extends RuntimeException {

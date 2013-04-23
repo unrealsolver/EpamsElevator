@@ -1,4 +1,4 @@
-package core;
+package by.epamlab.elevator.core;
 
 import java.util.ArrayList;
 import java.util.List;
