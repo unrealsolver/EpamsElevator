@@ -21,11 +21,8 @@ public class ElevatorCanvas extends JPanel {
 	//For controlling main button
 	private JButton godButton;
 	
-	private WText storeyText;
-	private WText inElevatorText;
-	private WText onStoreyText;
 	private WStoreyArray storeys;
-	private WTexturedBox elevator;
+	private WElevator elevator;
 	private float frameTime = 0;
 	
 	public ElevatorCanvas(ElevationTask elevationTask, JButton godButton) {
@@ -37,16 +34,13 @@ public class ElevatorCanvas extends JPanel {
 	
 	public void init() {
 		this.setBackground(Color.gray);
-		storeyText = new WText(" ", new Vector2i(60, 30));
-		inElevatorText = new WText(" ", new Vector2i(100, 65));
-		onStoreyText = new WText(" ", new Vector2i(4, 65));
 		storeys = new WStoreyArray(elevationTask.getTotalStoreys());
 		
 		Vector2i pos = new Vector2i(40, 250);
 		storeys.setPosition(pos);
 		Vector2i origin = storeys.getOrigin();
 		
-		elevator = new WTexturedBox(pos);
+		elevator = new WElevator(pos);
 		
 		try {
 			elevator.loadFromFile("resources/elevator.png");
@@ -61,12 +55,7 @@ public class ElevatorCanvas extends JPanel {
 							pos.y + origin.y/2 - ownSize.y/2 + adjustment.y);
 		
 		elevator.setPosition(pos);
-		
-		
-		//objects.add(fpsTextLabel);
-		//objects.add(storeyText);
-		//objects.add(inElevatorText);
-		//objects.add(onStoreyText);
+	
 		objects.addLast(storeys);
 		objects.add(elevator);
 		
@@ -98,10 +87,7 @@ public class ElevatorCanvas extends JPanel {
 		storeys.setTransportedDistribution(elevationTask.getTransportedDistribution());
 		storeys.moveToStorey(elevationTask.getElevator().getStorey());
 		
-		storeyText.setText("LVL: " + elevationTask.getElevator().getStorey());
-		inElevatorText.setText("ELV: " + elevationTask.getElevator().getPassengers());
-		onStoreyText.setText("STO: " + elevationTask.getStorey(
-				elevationTask.getElevator().getStorey()).getUntransportedPassengers());
+		elevator.setText("" + elevationTask.getElevator().getPassengers());
 		
 		//DRAW
 		super.paint(g);

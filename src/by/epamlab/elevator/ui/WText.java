@@ -43,8 +43,8 @@ public class WText extends WBase {
 	public void init() {
 		fontFamily = "Sans";
 		fontStyle = Font.BOLD;
-		fontSize = 14;
-		super.setColor(Color.GREEN);
+		fontSize = 18;
+		super.setColor(Color.BLACK);
 		fontRebuild();
 	}
 	

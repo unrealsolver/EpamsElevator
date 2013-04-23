@@ -41,7 +41,7 @@ public class Runner {
 		}
 		
 		/* Construct task */
-		final ElevationTask elevationTask = new RandomElevationTask(10, 30, 6);
+		final ElevationTask elevationTask = new RandomElevationTask(10, 40, 6);
 		
 		
 		//TODO if animationBoost...
