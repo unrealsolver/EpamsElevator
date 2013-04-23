@@ -52,6 +52,7 @@ public class WText extends WBase {
 		as = new AttributedString(text);
 		as.addAttribute(TextAttribute.FOREGROUND, super.getColor()); //Using superclass color
 		as.addAttribute(TextAttribute.FONT, new Font(fontFamily, fontStyle, fontSize));
+		setOrigin(new Vector2i(0, fontSize));
 	}
 	
 	public String getText() {

@@ -29,7 +29,6 @@ public class WStoreyArray extends WBase {
 	
 	public void init(int storeyCount) {
 		WStorey storey;
-		System.err.println(storeyCount);
 		untransportedDistribution= new int[storeyCount];
 		transportedDistribution= new int[storeyCount];
 		
@@ -86,7 +85,7 @@ public class WStoreyArray extends WBase {
 			storey.draw(target);
 		}
 		
-		super.draw(target);
+		//super.draw(target);
 	}
 	
 	@Override

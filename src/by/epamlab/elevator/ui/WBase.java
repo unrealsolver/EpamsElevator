@@ -85,7 +85,7 @@ public class WBase implements DynamicWidget {
 	public void draw(Graphics target) {
 		target.setColor(color);
 		((Graphics2D) target).setStroke(new BasicStroke(lineWidth)); 
-		target.drawRect(realPos.x, realPos.y, size.x, size.y);
+		target.drawRect(position.x, position.y, size.x, size.y);
 	}
 	
 	@Override
