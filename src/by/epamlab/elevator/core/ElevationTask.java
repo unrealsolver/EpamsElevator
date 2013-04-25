@@ -23,6 +23,7 @@ public class ElevationTask {
 	private TransportationState state = TransportationState.NOT_STARTED;
 	protected final int totalStoreys;
 	protected final int totalPassengers;
+	private float animationBoost = 0;
 	protected final  Elevator elevator;
 	private final ElevatorThread elevatorController;
 	protected final List<Storey> storeys;
@@ -58,6 +59,14 @@ public class ElevationTask {
 
 	public int getTotalPassengers() {
 		return totalPassengers;
+	}
+
+	public float getAnimationBoost() {
+		return animationBoost;
+	}
+
+	public void setAnimationBoost(float animationBoost) {
+		this.animationBoost = animationBoost;
 	}
 
 	public Elevator getElevator() {
@@ -99,6 +108,10 @@ public class ElevationTask {
 	
 	public TransportationState getState() {
 		return state;
+	}
+	
+	public void setState(TransportationState state) {
+		this.state = state;
 	}
 	
 	/* Usefull stuff */

@@ -127,6 +127,7 @@ public class ElevatorThread implements Runnable{
 		}
 		
 		log(Level.INFO, TransportationActions.COMPLETION_TRANSPORTATION);
+		elevationTask.setState(TransportationState.COMPLETED);
 		elevationTask.validate();
 	}
 }

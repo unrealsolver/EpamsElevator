@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.io.IOException;
 
-import javax.lang.model.element.ElementKind;
 import javax.swing.*;
 import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2i;
@@ -12,7 +11,6 @@ import org.jsfml.system.Vector2i;
 import by.epamlab.elevator.core.ElevationTask;
 import by.epamlab.elevator.core.TransportationState;
 
-import com.sun.java.swing.plaf.windows.WindowsBorders;
 
 
 @SuppressWarnings("serial")
@@ -20,6 +18,8 @@ public class ElevatorCanvas extends JPanel {
 	private final ElevationTask elevationTask;
 	private ObjectManager objects = new ObjectManager();
 	private Clock clock;
+	private float delay;
+	private Clock elevatorClock;
 	private TransportationState lastElevationState;
 	
 	//For controlling main button
@@ -66,6 +66,9 @@ public class ElevatorCanvas extends JPanel {
 		objects.add(elevator);
 		
 		clock = new Clock();
+		elevatorClock = new Clock();
+		
+		delay = 1/elevationTask.getAnimationBoost() * 1000;
 		
 		lastElevationState = TransportationState.ABORTED;
 		
@@ -76,7 +79,6 @@ public class ElevatorCanvas extends JPanel {
                 while (true) {
                 	repaint();
                     Thread.sleep(25); //FIXME Constant
-                    
                 }
             }
         };
@@ -88,7 +90,7 @@ public class ElevatorCanvas extends JPanel {
 	public void paint(Graphics g) {
 		frameTime = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
-		
+
 		//UPDATE
 		objects.updateAll(frameTime);
 		
@@ -115,9 +117,20 @@ public class ElevatorCanvas extends JPanel {
 		
 		elevator.setText("" + elevationTask.getElevator().getPassengers());
 		
+		if (elevatorClock.getElapsedTime().asMilliseconds() > delay) {
+			elevatorClock.restart();
+			//FIXME combine with step button
+			notifyElevator();
+		}
 		//DRAW
 		super.paint(g);
 		objects.drawAll(g);
 		
+	}
+	
+	private void notifyElevator() {
+		synchronized (elevationTask.getElevatorLock()) {
+			elevationTask.getElevatorLock().notifyAll();
+		}
 	}
 }

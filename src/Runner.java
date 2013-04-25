@@ -47,6 +47,7 @@ public class Runner {
 		//TODO if animationBoost...
 		/* Set interactive mode */
 		elevationTask.setInteractive(true);
+		elevationTask.setAnimationBoost(4);
 		/* Starting GUI */
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
