@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.io.IOException;
 
+import javax.lang.model.element.ElementKind;
 import javax.swing.*;
 import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2i;
 
 import by.epamlab.elevator.core.ElevationTask;
+import by.epamlab.elevator.core.TransportationState;
 
 import com.sun.java.swing.plaf.windows.WindowsBorders;
 
@@ -18,6 +20,7 @@ public class ElevatorCanvas extends JPanel {
 	private final ElevationTask elevationTask;
 	private ObjectManager objects = new ObjectManager();
 	private Clock clock;
+	private TransportationState lastElevationState;
 	
 	//For controlling main button
 	private JButton godButton;
@@ -43,6 +46,7 @@ public class ElevatorCanvas extends JPanel {
 		
 		elevator = new WElevator(pos);
 		
+		//FIXME Make a ResourceManager
 		try {
 			elevator.loadFromFile("resources/elevator.png");
 		} catch (IOException e) {
@@ -52,6 +56,7 @@ public class ElevatorCanvas extends JPanel {
 		Vector2i ownSize = elevator.getSize();
 		Vector2i adjustment = new Vector2i(-4, 17);
 		
+		//FIXME Move to class
 		pos = new Vector2i(	pos.x + origin.x/2 - ownSize.x/2 + adjustment.x,
 							pos.y + origin.y/2 - ownSize.y/2 + adjustment.y);
 		
@@ -62,6 +67,8 @@ public class ElevatorCanvas extends JPanel {
 		
 		clock = new Clock();
 		
+		lastElevationState = TransportationState.ABORTED;
+		
 		// Running redrawning in its own thread
 		SwingWorker<Object, Object> sw = new SwingWorker<Object, Object>() {
             @Override
@@ -69,6 +76,7 @@ public class ElevatorCanvas extends JPanel {
                 while (true) {
                 	repaint();
                     Thread.sleep(25); //FIXME Constant
+                    
                 }
             }
         };
@@ -84,6 +92,23 @@ public class ElevatorCanvas extends JPanel {
 		//UPDATE
 		objects.updateAll(frameTime);
 		
+		//FIXME Make a class for a GodButton. It's bad idea to handle logic in main loop
+		if (lastElevationState != elevationTask.getState()) {
+			lastElevationState = elevationTask.getState();
+			String newText = "";
+
+			switch (lastElevationState) {
+				case ABORTED: newText = "ABORTED: VIEW LOG"; break;
+				case COMPLETED: newText = "DONE. VIEW LOG"; break;
+				case IN_PROGRESS: newText = "ABORT"; break;
+				case NOT_STARTED: newText = "START"; break;
+			}
+			
+			godButton.setText(newText);
+		}
+		
+		//FIXME Maybe it will be better with in-class handling
+		//FIXME Too difficult
 		storeys.setUntransportedDistribution(elevationTask.getUntransportedDistribution());
 		storeys.setTransportedDistribution(elevationTask.getTransportedDistribution());
 		storeys.moveToStorey(elevationTask.getElevator().getStorey());

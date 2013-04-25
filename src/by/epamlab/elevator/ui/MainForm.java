@@ -1,11 +1,16 @@
 package by.epamlab.elevator.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.*;
+
+import org.apache.log4j.Level;
 
 import by.epamlab.elevator.core.ElevationTask;
 
@@ -59,9 +64,10 @@ public class MainForm extends JFrame {
 				counter.inc();
 				textArea.append("__button_pressed__" + counter + "\n");
 				//TODO: ELEVATION_TASK -> GET_STATE -> DETERMINE -> SWITCH STATE AND CAPTION
+				
 				stepButton.setText("Pressed " + counter);
 				synchronized (elevationTask.getElevatorLock()) {
-					elevationTask.getElevatorLock().notify();
+					elevationTask.getElevatorLock().notifyAll();
 				}
 			}
 		});
@@ -70,7 +76,12 @@ public class MainForm extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				elevationTask.interrupt();
+				switch (elevationTask.getState()) {
+					case ABORTED:
+					case COMPLETED: editFile(new File("elevator.log")); break;
+					case IN_PROGRESS:  elevationTask.interrupt(); break;
+					case NOT_STARTED: elevationTask.startElevation(); break;
+				}
 			}
 		});
 		
@@ -92,4 +103,23 @@ public class MainForm extends JFrame {
 		pack();
 	}
 
+	public boolean editFile(final File file) {
+		  if (!Desktop.isDesktopSupported()) {
+		    return false;
+		  }
+
+		  Desktop desktop = Desktop.getDesktop();
+		  if (!desktop.isSupported(Desktop.Action.EDIT)) {
+		    return false;
+		  }
+
+		  try {
+		    desktop.open(file);
+		  } catch (IOException e) {
+		    elevationTask.log(Level.ERROR, "Can't start core editor! " + e.getMessage());
+		    return false;
+		  }
+
+		  return true;
+		}
 }
