@@ -13,7 +13,13 @@ public class RandomElevationTask extends ElevationTask {
 	 */
 	public RandomElevationTask(int totalStoreys, int totalPassengers, int elevatorCapacity) {
 		super(totalStoreys, totalPassengers, elevatorCapacity);
-
+		
+		if (totalStoreys < 2 || totalStoreys < 1 || elevatorCapacity < 1) {
+			//FIXME throws new SomeException
+			System.err.println("Do not want");
+			System.exit(1);
+		}
+		
 		Passenger passenger;
 		int currentStorey = 0;
 		int destinationStorey;

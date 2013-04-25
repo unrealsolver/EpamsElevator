@@ -120,7 +120,7 @@ public class ElevatorCanvas extends JPanel {
 		if (elevatorClock.getElapsedTime().asMilliseconds() > delay) {
 			elevatorClock.restart();
 			//FIXME combine with step button
-			notifyElevator();
+			//notifyElevator();
 		}
 		//DRAW
 		super.paint(g);

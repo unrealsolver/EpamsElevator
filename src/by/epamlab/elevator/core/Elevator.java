@@ -29,11 +29,11 @@ public class Elevator {
 		return passengers.size();
 	}
 	
-	public synchronized void removePassenger(Passenger passenger) {
+	public void removePassenger(Passenger passenger) {
 		passengers.remove(passenger);
 	}
 	
-	public synchronized void takePassenger(Passenger passenger) {
+	public void takePassenger(Passenger passenger) {
 		if (!isFull()) {			
 			passengers.add(passenger);
 		} else {
@@ -41,7 +41,7 @@ public class Elevator {
 		}
 	}
 	
-	public synchronized boolean atDistination() {
+	public boolean atDistination() {
 		for (Passenger passenger : passengers) {
 			if (passenger.getDestinationStorey() == currentStorey) {
 				return true;

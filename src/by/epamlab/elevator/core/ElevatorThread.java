@@ -56,16 +56,16 @@ public class ElevatorThread implements Runnable{
 		return elevator.getPassengers();
 	}
 	
-	private void removePassenger(Passenger passenger) {
+	private synchronized void removePassenger(Passenger passenger) {
 		elevator.removePassenger(passenger);
 	}
 	
-	public void deboardPassenger(Passenger passenger) {
+	public synchronized void deboardPassenger(Passenger passenger) {
 		removePassenger(passenger);
 		elevationTask.getStorey(elevator.getStorey()).takePassenger(passenger);
 	}
 	
-	public void takePassenger(Passenger passenger) {
+	public synchronized void takePassenger(Passenger passenger) {
 		if ((passenger.getDestinationStorey() > elevator.getStorey()) == elevator.isUpward()) {
 			elevator.takePassenger(passenger);
 			elevationTask.getStoreyByPassenger(passenger).removePassenger(passenger);
@@ -73,6 +73,10 @@ public class ElevatorThread implements Runnable{
 			throw new ElevatorException("Wrong direction");
 		}
 		
+	}
+	
+	public synchronized boolean atDistination() {
+		return elevator.atDistination();
 	}
 	
 	@Override
@@ -88,7 +92,7 @@ public class ElevatorThread implements Runnable{
 			/* Release elevators passengers */
 			
 			synchronized (waitingLock) {
-				while ((elevator.getPassengers() > 0) && elevator.atDistination()) {
+				while ((elevator.getPassengers() > 0) && atDistination()) {
 					synchronized (containerLock) {	
 						containerLock.notifyAll();
 						waitingLock.notifyAll();
@@ -96,12 +100,15 @@ public class ElevatorThread implements Runnable{
 				}
 			}
 			
+			/* Invite passenger */
 			Object storeyLock = elevationTask.getStorey(elevator.getStorey()).getLock();
+			
 			synchronized (waitingLock) {
-				
 					synchronized (storeyLock) {
 						storeyLock.notifyAll();
-						
+						//FIXME While-loop
+						//FIXME Difficult to explain, because...
+						//пассажиры телепортируются в лифт независимо от его положения
 				}
 			}
 			

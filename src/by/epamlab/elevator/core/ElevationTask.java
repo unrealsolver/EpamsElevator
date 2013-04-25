@@ -31,7 +31,6 @@ public class ElevationTask {
 	private boolean interactive = false;
 
 	public ElevationTask(int totalStoreys, int totalPassengers, int elevatorCapacity) {
-		log(Level.INFO, "Hello from main!");
 		this.totalStoreys = totalStoreys;
 		this.totalPassengers = totalPassengers;
 		
@@ -89,7 +88,7 @@ public class ElevationTask {
 		return passengersTransported;
 	}
 	
-	public void transportPassenger() {
+	public synchronized void transportPassenger() {
 		passengersTransported++;
 	}
 	
