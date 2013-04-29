@@ -41,21 +41,21 @@ public class Runner {
 		}
 		
 		/* Construct task */
-		final ElevationTask elevationTask = new RandomElevationTask(10, 1000, 6);
+		final ElevationTask elevationTask = new RandomElevationTask(10, 40, 6);
 		
 		
 		//TODO if animationBoost...
 		/* Set interactive mode */
-		//elevationTask.setInteractive(true);
-		//elevationTask.setAnimationBoost(4);
+		elevationTask.setInteractive(true);
+		elevationTask.setAnimationBoost(4);
 		/* Starting GUI */
-		/*SwingUtilities.invokeLater(new Runnable() {
+		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				//Start main form 
 				JFrame form = new MainForm(elevationTask);
 				form.setVisible(true);
 			}
-		});*/
+		});
 
 		/* Start all processes */
 		elevationTask.startElevation();
