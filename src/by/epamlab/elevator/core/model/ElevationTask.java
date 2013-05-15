@@ -1,4 +1,4 @@
-package by.epamlab.elevator.core;
+package by.epamlab.elevator.core.model;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -7,12 +7,15 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import by.epamlab.elevator.core.ElevatorController;
+import by.epamlab.elevator.core.TransportationState;
+
 public class ElevationTask {
 	/* Locks */
 	private final Object elevatorLock = new Object();
 	
 	/* Logger */
-	static final Logger log = Logger.getLogger(ElevationTask.class);
+	protected static final Logger log = Logger.getLogger(ElevationTask.class);
 	
 	/* Threads */
 	protected final ThreadGroup passengersThreadGroup;	// \ Yes, I know, but ThreadGroup 

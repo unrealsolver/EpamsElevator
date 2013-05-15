@@ -8,8 +8,8 @@ import javax.swing.SwingUtilities;
 
 import org.apache.log4j.pattern.IntegerPatternConverter;
 
-import by.epamlab.elevator.core.ElevationTask;
-import by.epamlab.elevator.core.RandomElevationTask;
+import by.epamlab.elevator.core.model.ElevationTask;
+import by.epamlab.elevator.core.model.RandomElevationTask;
 import by.epamlab.elevator.ui.MainForm;
 
 public class Runner {

@@ -2,6 +2,10 @@ package by.epamlab.elevator.core;
 
 import org.apache.log4j.Level;
 
+import by.epamlab.elevator.core.model.ElevationTask;
+import by.epamlab.elevator.core.model.Elevator;
+import by.epamlab.elevator.core.model.Passenger;
+
 public class ElevatorController implements Runnable{
 	private final ElevationTask elevationTask;
 	private final Elevator elevator;
@@ -16,7 +20,7 @@ public class ElevatorController implements Runnable{
 		this.elevationTask = elevationTask;
 		this.elevator = elevationTask.getElevator();
 		this.lock = elevationTask.getElevatorLock();
-		this.totalPassengers = elevationTask.totalPassengers;
+		this.totalPassengers = elevationTask.getTotalPassengers();
 		containerLock = new Object();
 		waitingLock = new Object();
 		update();

@@ -1,4 +1,7 @@
-package by.epamlab.elevator.core;
+package by.epamlab.elevator.core.model;
+
+import by.epamlab.elevator.core.IDManager;
+import by.epamlab.elevator.core.TransportationState;
 
 public class Passenger {
 	private final int id;

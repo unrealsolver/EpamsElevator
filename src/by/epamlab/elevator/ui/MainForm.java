@@ -12,7 +12,7 @@ import javax.swing.*;
 
 import org.apache.log4j.Level;
 
-import by.epamlab.elevator.core.ElevationTask;
+import by.epamlab.elevator.core.model.ElevationTask;
 
 
 public class MainForm extends JFrame {

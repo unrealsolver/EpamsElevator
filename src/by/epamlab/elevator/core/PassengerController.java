@@ -2,6 +2,9 @@ package by.epamlab.elevator.core;
 
 import org.apache.log4j.Level;
 
+import by.epamlab.elevator.core.model.ElevationTask;
+import by.epamlab.elevator.core.model.Passenger;
+
 public class PassengerController implements Runnable {
 	private final ElevationTask elevationTask;
 	private final Passenger passenger;

@@ -1,7 +1,9 @@
-package by.epamlab.elevator.core;
+package by.epamlab.elevator.core.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import by.epamlab.elevator.core.ElevatorException;
 
 public class Elevator {
 	private final int capacity;

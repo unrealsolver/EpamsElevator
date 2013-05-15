@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.jsfml.system.Vector2i;
 
-import by.epamlab.elevator.core.ElevationTask;
+import by.epamlab.elevator.core.model.ElevationTask;
 
 
 public class WStoreyArray extends WBase {

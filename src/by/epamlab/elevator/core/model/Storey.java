@@ -1,7 +1,8 @@
-package by.epamlab.elevator.core;
+package by.epamlab.elevator.core.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Storey {
 	private final Object dispatchLock = new Object();

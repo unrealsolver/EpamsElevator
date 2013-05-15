@@ -1,7 +1,9 @@
-package by.epamlab.elevator.core;
+package by.epamlab.elevator.core.model;
 
 import java.util.Arrays;
 import java.util.Random;
+
+import by.epamlab.elevator.core.PassengerController;
 
 public class RandomElevationTask extends ElevationTask {
 	private static Random rnd = new Random();
