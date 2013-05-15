@@ -41,7 +41,7 @@ public class RandomElevationTask extends ElevationTask {
 				storey.addPassenger(passenger);
 				
 				passengersThreads.add(new Thread(passengersThreadGroup,
-						new PassengerThread(this, passenger),
+						new PassengerController(this, passenger),
 						new String("PASSENGER_" + passenger.getId())));
 				
 			}

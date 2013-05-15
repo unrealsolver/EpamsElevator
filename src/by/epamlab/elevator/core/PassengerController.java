@@ -2,14 +2,14 @@ package by.epamlab.elevator.core;
 
 import org.apache.log4j.Level;
 
-public class PassengerThread implements Runnable {
+public class PassengerController implements Runnable {
 	private final ElevationTask elevationTask;
 	private final Passenger passenger;
-	private final ElevatorThread elevatorController;
+	private final ElevatorController elevatorController;
 	private Object lock;
 	private boolean inElevator;
 
-	public PassengerThread(ElevationTask elevationTask, Passenger passenger) {
+	public PassengerController(ElevationTask elevationTask, Passenger passenger) {
 		this.elevationTask = elevationTask;
 		this.passenger = passenger;
 		this.elevatorController = elevationTask.getElevatorController();

@@ -25,7 +25,7 @@ public class ElevationTask {
 	protected final int totalPassengers;
 	private float animationBoost = 0;
 	protected final  Elevator elevator;
-	private final ElevatorThread elevatorController;
+	private final ElevatorController elevatorController;
 	protected final List<Storey> storeys;
 	private int passengersTransported = 0;
 	private boolean interactive = false;
@@ -44,7 +44,7 @@ public class ElevationTask {
 		passengersThreadGroup = new ThreadGroup("PASSENGERS");
 		passengersThreads = new LinkedList<Thread>();
 		
-		elevatorController = new ElevatorThread(this);
+		elevatorController = new ElevatorController(this);
 		elevatorThread = new Thread(elevatorController, "ELEVATOR");
 		
 		//I think it isn't good idea...
@@ -101,7 +101,7 @@ public class ElevationTask {
 		return interactive;
 	}
 	
-	public ElevatorThread getElevatorController() {
+	public ElevatorController getElevatorController() {
 		return elevatorController;
 	}
 	

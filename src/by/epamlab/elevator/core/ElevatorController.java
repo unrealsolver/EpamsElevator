@@ -2,7 +2,7 @@ package by.epamlab.elevator.core;
 
 import org.apache.log4j.Level;
 
-public class ElevatorThread implements Runnable{
+public class ElevatorController implements Runnable{
 	private final ElevationTask elevationTask;
 	private final Elevator elevator;
 	private final Object lock;
@@ -12,7 +12,7 @@ public class ElevatorThread implements Runnable{
 	private boolean interactive;
 	private int lastStorey;
 	
-	public ElevatorThread(ElevationTask elevationTask) {
+	public ElevatorController(ElevationTask elevationTask) {
 		this.elevationTask = elevationTask;
 		this.elevator = elevationTask.getElevator();
 		this.lock = elevationTask.getElevatorLock();
