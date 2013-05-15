@@ -1,8 +1,9 @@
-package by.epamlab.elevator.ui;
+package by.epamlab.elevator.ui.widgets;
 
 import java.util.Random;
 
 import org.jsfml.system.Vector2i;
+
 
 public class WRotatingBox extends WBase {
 		private Vector2i rotationCenter = new Vector2i(125, 125);

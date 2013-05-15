@@ -1,4 +1,4 @@
-package by.epamlab.elevator.ui;
+package by.epamlab.elevator.ui.widgets;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -7,6 +7,7 @@ import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 
 import org.jsfml.system.Vector2i;
+
 
 public class WText extends WBase {
 	private String text;

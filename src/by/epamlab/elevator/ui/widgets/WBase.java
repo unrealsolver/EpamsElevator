@@ -1,4 +1,4 @@
-package by.epamlab.elevator.ui;
+package by.epamlab.elevator.ui.widgets;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -8,6 +8,7 @@ import java.awt.Shape;
 import java.awt.Stroke;
 
 import org.jsfml.system.Vector2i;
+
 
 public class WBase implements DynamicWidget {
 	/* Inspired by SFML */

@@ -1,4 +1,4 @@
-package by.epamlab.elevator.ui;
+package by.epamlab.elevator.ui.widgets;
 
 import java.awt.Graphics;
 

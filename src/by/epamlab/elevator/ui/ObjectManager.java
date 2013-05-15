@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import by.epamlab.elevator.ui.widgets.DynamicWidget;
+
 public class ObjectManager {
 	private final List<DynamicWidget> objects = new LinkedList<DynamicWidget>();
 	

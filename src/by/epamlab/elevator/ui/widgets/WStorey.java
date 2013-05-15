@@ -1,4 +1,4 @@
-package by.epamlab.elevator.ui;
+package by.epamlab.elevator.ui.widgets;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import org.jsfml.system.Vector2i;
+
 
 public class WStorey extends WBase {
 	private BufferedImage image;
