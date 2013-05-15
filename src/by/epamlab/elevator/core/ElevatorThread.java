@@ -114,7 +114,7 @@ public class ElevatorThread implements Runnable{
 			
 			/* Close doors */
 			
-			if (interactive) {
+			if (interactive || elevationTask.getAnimationBoost() != 0) {
 				try {
 					synchronized (lock) {
 						lock.wait();

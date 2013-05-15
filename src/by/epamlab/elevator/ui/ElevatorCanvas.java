@@ -117,10 +117,11 @@ public class ElevatorCanvas extends JPanel {
 		
 		elevator.setText("" + elevationTask.getElevator().getPassengers());
 		
-		if (elevatorClock.getElapsedTime().asMilliseconds() > delay) {
-			elevatorClock.restart();
-			//FIXME combine with step button
-			//notifyElevator();
+		if (!elevationTask.isInteractive()) {
+			if (elevatorClock.getElapsedTime().asMilliseconds() > delay) {
+				elevatorClock.restart();
+				notifyElevator();
+			}
 		}
 		//DRAW
 		super.paint(g);
