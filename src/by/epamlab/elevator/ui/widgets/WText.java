@@ -103,7 +103,8 @@ public class WText extends WBase {
 
 	@Override
 	public void draw(Graphics target) {
-		target.drawString(as.getIterator(), realPos.x, realPos.y);
+		Vector2i pos = getScreenPos();
+		target.drawString(as.getIterator(), pos.x, pos.y);
 	}
 
 	@Override

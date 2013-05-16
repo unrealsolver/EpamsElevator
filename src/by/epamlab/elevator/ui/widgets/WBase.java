@@ -18,11 +18,12 @@ public class WBase implements DynamicWidget {
 	
 	private Color color = Color.BLACK;
 	private float lineWidth = 1;
+	private boolean positionNeedUpdate = true;
 	
 	protected Vector2i position = DEFAULT_POSITION;
 	protected Vector2i origin = DEFAULT_ORIGIN;
 	protected Vector2i size = DEFAULT_SIZE;
-	protected Vector2i realPos = DEFAULT_POSITION;
+	private Vector2i screenPos = DEFAULT_POSITION;
 	
 	
 	public WBase() {
@@ -44,7 +45,7 @@ public class WBase implements DynamicWidget {
 
 	public void setPosition(Vector2i position) {
 		this.position = position;
-		realPos = Vector2i.add(position, origin);
+		screenPos = Vector2i.add(position, origin);
 	}
 
 	public Vector2i getOrigin() {
@@ -53,7 +54,7 @@ public class WBase implements DynamicWidget {
 	
 	public void setOrigin(Vector2i origin) {
 		this.origin = origin;
-		realPos = Vector2i.add(position, origin);
+		screenPos = Vector2i.add(position, origin);
 	}
 	
 	public Vector2i getSize() {
@@ -80,7 +81,17 @@ public class WBase implements DynamicWidget {
 		this.color = color;
 	}
 	
-	//FIXME COPY ORIGIN IMPL FROM SFML!!!
+	protected Vector2i getScreenPos() {
+		if (positionNeedUpdate) {
+			screenPos = Vector2i.add(position, origin);
+			positionNeedUpdate = false;
+		}
+		
+		return screenPos;
+	}
+	
+	//FIXME COPY 'ORIGIN' IMPL FROM SFML!!!
+		//Partially done
 	//FIXME JUST FIXME!11
 	@Override
 	public void draw(Graphics target) {
