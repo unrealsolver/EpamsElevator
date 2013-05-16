@@ -45,7 +45,7 @@ public class WBase implements DynamicWidget {
 
 	public void setPosition(Vector2i position) {
 		this.position = position;
-		screenPos = Vector2i.add(position, origin);
+		positionNeedUpdate = true;
 	}
 
 	public Vector2i getOrigin() {
@@ -54,7 +54,7 @@ public class WBase implements DynamicWidget {
 	
 	public void setOrigin(Vector2i origin) {
 		this.origin = origin;
-		screenPos = Vector2i.add(position, origin);
+		positionNeedUpdate = true;
 	}
 	
 	public Vector2i getSize() {
