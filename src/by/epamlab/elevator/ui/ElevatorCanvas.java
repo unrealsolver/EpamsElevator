@@ -10,6 +10,7 @@ import org.jsfml.system.Vector2i;
 
 import by.epamlab.elevator.core.TransportationState;
 import by.epamlab.elevator.core.model.ElevationTask;
+import by.epamlab.elevator.ui.widgets.WBase;
 import by.epamlab.elevator.ui.widgets.WElevator;
 import by.epamlab.elevator.ui.widgets.WStoreyArray;
 

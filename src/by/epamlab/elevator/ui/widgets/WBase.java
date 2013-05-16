@@ -83,7 +83,7 @@ public class WBase implements DynamicWidget {
 	
 	protected Vector2i getScreenPos() {
 		if (positionNeedUpdate) {
-			screenPos = Vector2i.add(position, origin);
+			screenPos = Vector2i.sub(position, origin);
 			positionNeedUpdate = false;
 		}
 		
@@ -96,8 +96,9 @@ public class WBase implements DynamicWidget {
 	@Override
 	public void draw(Graphics target) {
 		target.setColor(color);
+		Vector2i pos = getScreenPos();
 		((Graphics2D) target).setStroke(new BasicStroke(lineWidth)); 
-		target.drawRect(position.x, position.y, size.x, size.y);
+		target.drawRect(pos.x, pos.y, size.x, size.y);
 	}
 	
 	@Override

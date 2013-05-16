@@ -28,7 +28,8 @@ public class WTexturedBox extends WBase {
 	public void draw(Graphics target) {
 		super.draw(target);
 		if (!safemode) {
-			target.drawImage(image, position.x, position.y, null);
+			Vector2i pos = getScreenPos();
+			target.drawImage(image, pos.x, pos.y, null);
 		}
 	}
 }
