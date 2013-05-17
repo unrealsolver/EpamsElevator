@@ -50,7 +50,7 @@ public class PassengerController implements Runnable {
 							" " + elevatorController.getStorey());
 					inElevator = true;
 				} catch (ElevatorException e) {
-
+					//Wrong direction!
 				}
 
 			}

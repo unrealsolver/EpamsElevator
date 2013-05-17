@@ -110,6 +110,9 @@ public class ElevatorController implements Runnable{
 			synchronized (waitingLock) {
 					synchronized (storeyLock) {
 						storeyLock.notifyAll();
+						if (elevator.isFull()) {
+							
+						}
 						//FIXME While-loop
 						//FIXME Difficult to explain, because...
 						//пассажиры телепортируются в лифт независимо от его положения
