@@ -41,7 +41,7 @@ public class ElevatorCanvas extends JPanel {
 	
 	public void init() {
 		this.setBackground(Color.gray);
-		storeys = new WStoreyArray(elevationTask.getTotalStoreys());
+		storeys = new WStoreyArray(elevationTask);
 		
 		Vector2i pos = new Vector2i(40, 250);
 		storeys.setPosition(pos);

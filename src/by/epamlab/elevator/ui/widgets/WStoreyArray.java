@@ -17,15 +17,20 @@ public class WStoreyArray extends WBase {
 	private Vector2i offset; //Storey offset
 	private int vSize = 10; //Just default value for storey height
 	private int targetStorey = -1;
+	private ElevationTask elevationTask;
+	private float storey;
+	private float speed = 1;
 	
-	public WStoreyArray(int storeyCount) {
+	public WStoreyArray(ElevationTask elevationTask) {
 		super();
-		init(storeyCount);	
+		this.elevationTask = elevationTask;
+		init(elevationTask.getTotalStoreys());	
 	}
 	
-	public WStoreyArray(Vector2i position, int storeyCount) {
+	public WStoreyArray(Vector2i position, ElevationTask elevationTaskt) {
 		super(position);
-		init(storeyCount);
+		this.elevationTask = elevationTask;
+		init(elevationTask.getTotalStoreys());	
 	}
 	
 	public void init(int storeyCount) {
@@ -48,6 +53,7 @@ public class WStoreyArray extends WBase {
 		super.setColor(Color.RED);
 		super.setSize(new Vector2i(5,5));
 		super.setLineWidth(4);
+		
 	}
 	
 	public void setUntransportedDistribution(int[] distribution) {
